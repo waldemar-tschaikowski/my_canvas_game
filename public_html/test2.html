@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+
+    <canvas id="myCanvas" width="1000" height="500"></canvas>
+
+    <script>
+       canvas = document.querySelector('#myCanvas');
+        ctx = canvas.getContext('2d');	
+        
+        var img = new Image();
+            
+        img.src = 'assets/img/gamer/gamer_run1.png';
+        img.width = 60;
+        img.height = 60;
+        img.left = 130;
+        img.top = 30;
+
+        img.onload = function(){
+           /* ctx.save(); 
+            ctx.scale(-1, 1);
+             ctx.translate(-100,0);
+            ctx.drawImage(img, -160, 60, 60, 60);
+            ctx.restore();*/
+          
+        //ctx.save();
+	//ctx.translate(img.left + img.width, 0);
+	//ctx.rotate((45).degree());
+        //ctx.scale(-1, 0);
+	//ctx.translate(-60, 220);
+	ctx.drawImage(img, 20, 120);
+	//ctx.restore();
+        };
+    </script>    
+    </body>
+</html>

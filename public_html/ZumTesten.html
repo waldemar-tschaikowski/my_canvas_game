@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <canvas id="canvas" width="400" height="200" class="playable-canvas"></canvas>
+        
+        <script type="text/javascript">
+function drawIt(){
+  var objCanvas = document.getElementById("canvas");
+  // Falls das Objekt unterstützt wird
+  if(objCanvas.getContext){
+    // Kontext
+    var objContext = objCanvas.getContext('2d');
+
+    // Zeichnet Rechteck mit Defaultfarbe (schwarz)
+    objContext.fillRect(0, 0, 80, 80);
+    // Default speichern
+    objContext.save();
+    // Rotes Rechteck zeichnen
+    objContext.fillStyle = "#f00";
+    objContext.fillRect(20, 20, 80, 80);
+    // Defaultzustand wiederherstellen
+    objContext.restore();
+    objContext.fillRect(40, 40, 80, 80);
+  }else{
+    // Sonstiger Code
+  }
+}
+drawIt();
+        </script>
+    </body>
+</html>
