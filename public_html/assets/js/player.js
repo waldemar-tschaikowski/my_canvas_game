@@ -6,12 +6,6 @@ function  Player () {
      * console.log(!!a);
      */
     var _playerStanding = true,
-        _framesCounter = 0,
-        /**
-         * INTERVAL_OF_FRAMESwird benutzt, um festzustellen, wie viel mal die Funktion von dem Objekt Player aufgerufen wurde.
-         * Wii oft sollen sich die Frames von Player wechseln.
-         */
-        INTERVAL_OF_FRAMES = 9,
         _width = 71,
         _height = 102,
         TOP_DEFAULT = 314,
@@ -25,8 +19,8 @@ function  Player () {
         _y_velocity = Y_VELOCITY_DEFAULT,
         X_VELOCITY_DEFAULT = 6,
         _x_velocity = X_VELOCITY_DEFAULT,
-        STEP = 0.3,
-        SPEED = 20,
+        STEP = 20,
+        SPEED = 0.2,
         _flipedImage = false;
 
 //    var GameStateEnum = {
@@ -91,8 +85,6 @@ function  Player () {
         if (MY_ControllerKey.left) {
             _flipedImage = true;// Bild umdrehen
             _left -= SPEED * STEP;
-
-            _indexRunPlayer = flor(_indexRunPlayer) %  _sprite.spriteSources.length;
                         
             _indexRunPlayer += SPEED;
         }
@@ -105,8 +97,6 @@ function  Player () {
             _flipedImage = false;// Bild umdrehen
             _left += SPEED * STEP;
             
-             _indexRunPlayer = flor(_indexRunPlayer) %  _sprite.spriteSources.length;
-                        
             _indexRunPlayer += SPEED;
             //console.log(left);
         }
@@ -137,18 +127,7 @@ function  Player () {
         _sprite.shapes[0].left = _left;
         _sprite.shapes[0].flipedImage = (_flipedImage) ? true : false;
 
-        //Wie schnell sollen die Bilder ausgetauscht werden.
-//        if (_framesCounter >= INTERVAL_OF_FRAMES) {
-//            _indexRunPlayer++;
-//            if (_indexRunPlayer >= _playerRun.length) {
-//                _indexRunPlayer = 0;
-//            }
-//            _framesCounter = 0;
-//        }        
-//        _framesCounter++;
-
         //Get Frame für Kollision
-        //
         if (_collision) {
             //den letzten Frame anzeigen, wenn er runter gefallen ist.
             if (indexCollisionsFrames === _playerFall.length) {
@@ -186,8 +165,10 @@ function  Player () {
 
               _top = TOP_DEFAULT;
             }
-
-            _sprite.frame = MY_Game_Resources.get(_playerRun[_indexRunPlayer]);
+            
+            let index =  Math.floor(_indexRunPlayer) % _playerRun.length;
+            
+            _sprite.frame = MY_Game_Resources.get(_playerRun[index]);
 
             if (MY_ControllerKey.right || MY_ControllerKey.left) {
                 _x_velocity += 0.05;
@@ -205,7 +186,9 @@ function  Player () {
             return _sprite;
         }
         
-        _sprite.frame = MY_Game_Resources.get(_playerRun[_indexRunPlayer]);       
+        let index =  Math.floor(_indexRunPlayer) % _playerRun.length;
+
+        _sprite.frame = MY_Game_Resources.get(_playerRun[index]);       
 
         _sprite.shapes[0].top = TOP_DEFAULT;
 
@@ -223,7 +206,6 @@ function  Player () {
     
     function _stop () {
         _playerStanding = true;
-        _framesCounter = 0;//FPS Zähler
         _indexRunPlayer = 0;
     }
         
