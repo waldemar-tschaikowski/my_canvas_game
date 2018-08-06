@@ -6,8 +6,10 @@ function Gun (player) {
         _top = 350,
         _left = 138,
         STEP = 4,
-        ALLOWED_DISTANCE_BULLET = 1000,
-        _player = player;
+//        ALLOWED_DISTANCE_BULLET = 1000,
+        _player = player,
+        _leftBullet,
+        _topBullet;
 
     var _sprite = {
         name : 'bullet',
@@ -16,12 +18,7 @@ function Gun (player) {
         shapes : [],// pattern Flyweight. Mehrere Objekte von gleichem Datentype, aber verschiedene Größen haben.
         frame : null
     };
-//    
-//    var bulletsStorage = {
-//        name : null,
-//        arr : new Array()
-//    };    
-//    
+
     var audio = {
         url : 'assets/audio/shoot.ogg',
         data : undefined
@@ -41,8 +38,6 @@ function Gun (player) {
      * 
      * pattern Flyweight
      */
-    var _leftBullet;
-    var _topBullet;
     function _shoot() {
         _leftBullet = _player.getLeft() + _player.getWidth();
         
@@ -61,7 +56,6 @@ function Gun (player) {
         
         return _sprite;
     };
-
     
     function _refreshBullets() {
         for (var i = 0; i < _sprite.shapes.length; i++) {

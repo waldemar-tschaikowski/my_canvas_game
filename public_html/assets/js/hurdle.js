@@ -5,8 +5,8 @@ function Hurdle () {
         _top = TOP_DEFAULT,
         LEFT_DEFAULT = 800,
         _left = LEFT_DEFAULT,
-        STEP = 2,
-        _impulse = 2;
+        STEP = 4,
+        _direction = -1;
     
     var _sprite = {
         name    : 'hurdle',
@@ -28,11 +28,11 @@ function Hurdle () {
     }
     
     function _move () {
-        _left -= STEP * _impulse;
-        
         if (_left < 0 || _left + _width >= MY_MapWidth) {
-            _impulse *= -1;
+            _direction *= -1;
         }
+        
+        _left += STEP * _direction;
     }
     
     this.getResources = function() {
@@ -49,14 +49,6 @@ function Hurdle () {
     this.move = function() {
         _move();
     };
-    
-//    this.setImpulse = function(i) {
-//        _impulse = i;
-//    };
-//    
-//    this.setDefaultImpulse = function () {
-//        _impulse = STEP;
-//    };
     
     this.getLeft = function() {
         return _left;
@@ -77,6 +69,7 @@ function Hurdle () {
     this.reset = function() {
         _top = TOP_DEFAULT;
         _left = LEFT_DEFAULT;
+        _direction = 1;
     };
 }
 

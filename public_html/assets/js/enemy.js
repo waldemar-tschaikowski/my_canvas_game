@@ -1,14 +1,16 @@
 function Enemy() {
     var _width = 201,
         _height = 172,
-        _top = 244,
-        _left = 800,
-        KEYDOWN_TIME = 6,
-        indexMonsterPosition = 0,
-        framesCounter = 0,
+        TOP_DEFAULT = 244,
+        _top = TOP_DEFAULT,
+        LEFT_DEFAULT = 800,
+        _left = LEFT_DEFAULT,
+        _indexPos = 0,
         STEP = 2,
-        _impulse = 2,
-        _scoreDead = 0;
+        SPEED = 0.2,
+        _direction = -1,
+        _scoreDead = 0,
+        _flipedImage = false;
 
     var _sprite =  {
         name : 'enemies',
@@ -43,21 +45,19 @@ function Enemy() {
     }
     
     function _move() {
-        if (framesCounter === KEYDOWN_TIME) {
-            framesCounter = 0;
-
-            indexMonsterPosition++;
-            
-            if (indexMonsterPosition >= _sprite.spriteSources.length) {
-               indexMonsterPosition = 0;
-            }
-        }
-        framesCounter++;
-        
-        _left -= STEP * _impulse;
+        _indexPos += SPEED;
         
         if (_left <= 0 || _left + _width >= MY_MapWidth) {
-            _impulse *= -1;
+            _direction *= -1;
+        }        
+                
+        _left += STEP * _direction;
+        
+        if (_direction === 1) {
+            _flipedImage = true;// Bild umdrehen
+        }
+        else {
+            _flipedImage = false;// Bild umdrehen
         }
     }
     
@@ -66,7 +66,9 @@ function Enemy() {
     };
     
     this.get = function() {
-        _sprite.frame  = MY_Game_Resources.get(_sprite.spriteSources[indexMonsterPosition]);
+        var index = Math.floor(_indexPos) % _sprite.spriteSources.length;
+        
+        _sprite.frame  = MY_Game_Resources.get(_sprite.spriteSources[index]);
         
         _sprite.shapes = [{
             sTop        : 0,//sTop Sourse Top
@@ -76,7 +78,7 @@ function Enemy() {
             width       : _width,
             height      : _height,
             useSlice    : false,
-            flipedImage : false
+            flipedImage : _flipedImage
         }];
 
         return _sprite;

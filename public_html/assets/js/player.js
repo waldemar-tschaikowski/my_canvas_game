@@ -13,7 +13,8 @@ function  Player () {
         LEFT_DEFAULT = 300,
         _left = 0,
         _indexRunPlayer = 0,
-        _jumping  = false,
+        _indexCollisionsFrames = 0,
+        _jumping  = false,//ob der Player sich in dem Sprungzustand befindet. In der Luft
         _collision = false,
         Y_VELOCITY_DEFAULT = -30,
         _y_velocity = Y_VELOCITY_DEFAULT,
@@ -68,16 +69,16 @@ function  Player () {
     /*
      * playerRun, playerStand, playerFall - die werden zu einem Array gefasst,
      * und sich in Cache bufindet. Aber besser in Programmcode diese als getrente
-     * Elemente betrachten.
+     * Elemente zu betrachten.
      * @type Number
      */
-    function _getResources () {
+    function _getResources() {
         _sprite.spriteSources = _playerRun.concat(_playerStand, _playerFall);
 
         return _sprite;
     }
 
-    function _move () {       
+    function _move() {       
         if (_playerStanding) {
             _playerStanding = false;
         }
@@ -116,28 +117,22 @@ function  Player () {
     
     /**
      * _left bedeutet die Position auf dem Background.
-     * playerPositionLeftInCanvas - Die Position im Canvas
+     * 
      * @type Number
      */
-    var playerPositionLeftInCanvas;
-    var indexCollisionsFrames = 0;
-    this.get = function () {
-        //playerPositionLeftInCanvas = _left - MY_camera.xView;
-        
-        _sprite.shapes[0].left = _left;
+    this.get = function() {
         _sprite.shapes[0].flipedImage = (_flipedImage) ? true : false;
 
         //Get Frame für Kollision
         if (_collision) {
             //den letzten Frame anzeigen, wenn er runter gefallen ist.
-            if (indexCollisionsFrames === _playerFall.length) {
-                indexCollisionsFrames = _playerFall.length - 1;
+            if (_indexCollisionsFrames === _playerFall.length) {
+                _indexCollisionsFrames = _playerFall.length - 1;
             }
-            else {
-                _top += 6;
-            }
+            
+            _top += 3;
 
-            _sprite.frame = MY_Game_Resources.get(_playerFall[indexCollisionsFrames++]);
+            _sprite.frame = MY_Game_Resources.get(_playerFall[_indexCollisionsFrames++]);
             
             _sprite.shapes[0].top = _top;
             
@@ -165,108 +160,77 @@ function  Player () {
 
               _top = TOP_DEFAULT;
             }
-            
-            let index =  Math.floor(_indexRunPlayer) % _playerRun.length;
-            
-            _sprite.frame = MY_Game_Resources.get(_playerRun[index]);
 
             if (MY_ControllerKey.right || MY_ControllerKey.left) {
-                _x_velocity += 0.05;
+                _x_velocity += 0.25;
+                
                 if (_flipedImage) {
                     _left -= _x_velocity;
                 }
                 else {
                     _left += _x_velocity;
                 }
+                
                 _x_velocity *= 0.9;
             }
 
             _sprite.shapes[0].top = _top;
-
-            return _sprite;
+        }
+        else {
+            _sprite.shapes[0].top = TOP_DEFAULT;
         }
         
-        let index =  Math.floor(_indexRunPlayer) % _playerRun.length;
+        _sprite.shapes[0].left = _left;
+        
+        var index =  Math.floor(_indexRunPlayer) % _playerRun.length;
 
-        _sprite.frame = MY_Game_Resources.get(_playerRun[index]);       
-
-        _sprite.shapes[0].top = TOP_DEFAULT;
+        _sprite.frame = MY_Game_Resources.get(_playerRun[index]);        
 
         return _sprite;
     };
 
-    function _jump () {
+    function _jump() {
         if (_jumping === false) {
             _y_velocity = Y_VELOCITY_DEFAULT;
             _x_velocity = X_VELOCITY_DEFAULT;
             
-            _jumping  = true;
+            _jumping  = true;// er ist gesprungen.
         }
     }
     
-    function _stop () {
+    function _stop() {
         _playerStanding = true;
         _indexRunPlayer = 0;
     }
         
-    this.move = function () {
+    this.move = function() {
         _move();
     };
     
-    this.jump = function () {
+    this.jump = function() {
         _jump();
     };
     
-    this.stop = function () {
+    this.stop = function() {
         _stop();
     };
     
-    this.getResources = function () {
+    this.getResources = function() {
         return _getResources();
     };
     
-//    this.isLoaded = function () {
-//      return imagesLoaded;  
-//    };
-
-//    this.handleCollsionBehavior = function () {
-//        playerFrames.fall[3].top += 4;
-//        playerFrames.fall[4].top += 8;
-//        playerFrames.fall[4].top += 12;
-//        return playerFrames.fall;
-//    };
-    
-    this.isPlayerStanding = function () {
+    this.isPlayerStanding = function() {
         return _playerStanding;
     };
     
-    this.isPlayerJumping = function () {
+    this.isPlayerJumping = function() {
         return _jumping ;
     };
-//    
-//    this.checkCollision = function (enemy) {
-//        var _enemy = enemy.get();
-////        console.log(object);
-////        return object + '--' + playerFrames.run[startPosGamer].left + playerWidth + 20;
-//        if ((playerFrames.run[startPosGamer].top + playerHeight - 10) < _enemy.top) {
-//            return false;
-//        }
-//        if (_enemy.left < (playerFrames.run[startPosGamer].left + playerWidth - 10)
-//                &&
-//           (_enemy.left + _enemy.width - 10) > (playerFrames.run[startPosGamer].left + 16))
-//        {
-//            collision = true;
-//            
-//            return true;
-//        }
-//        
-//        return false;
-//    };
     
     this.onCollision = function(callback) {
         _collision = true;
         
-        callback(true);
+        callback(true);//Game Over
     };
     
     this.getLeft = function() {
@@ -293,8 +257,12 @@ function  Player () {
         _top = TOP_DEFAULT;
         _left = LEFT_DEFAULT;
         _indexRunPlayer = 0;
-        indexCollisionsFrames = 0;
+        _indexCollisionsFrames = 0;
         _collision = false;
+        _jumping = false;
+        _y_velocity = Y_VELOCITY_DEFAULT;
+        _x_velocity = X_VELOCITY_DEFAULT;
+        _playerStanding = true;
     };
 };
 
