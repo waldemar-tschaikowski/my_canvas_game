@@ -9,7 +9,7 @@ function Enemy() {
         STEP = 2,
         SPEED = 0.2,
         _direction = -1,
-        _scoreDead = 0,
+        _scoreDead = 8,
         _flipedImage = false;
 
     var _sprite =  {
@@ -90,10 +90,7 @@ function Enemy() {
     
     this.onCollision = function(callBack) {
         _left =  Math.floor(Math.random() * Math.floor(MY_MapWidth - _width));
-        
-        if (_scoreDead === 9) {
-            callBack(true);
-        }
+
         _scoreDead += 1;
     };
     

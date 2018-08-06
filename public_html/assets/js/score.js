@@ -1,13 +1,7 @@
 function Score(enemy) {
     'use strict';
     
-    var _width = 930,
-        _height = 500,
-        _top = 120,
-        _left = 0,
-        _mapWidth = 4000,//2560
-        _mapHeight = 640,
-        _enemy = enemy;
+    var _enemy = enemy;
 
     var _sprite = {
         name : 'score',
@@ -153,6 +147,8 @@ function Score(enemy) {
      * 
      * @returns {Background._sprite}
      */
+    var _oldLeft = [];
+    var _left = 0;
     this.get = function() {
         _sprite.frame = [];
         _sprite.shapes = [];
@@ -171,10 +167,38 @@ function Score(enemy) {
         });
         
         var score = _enemy.getScore();
+
+       
+        for (var i = 0, num = score.toString(); i < num.length; i++) {
+            _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0])); 
+
+            if (_oldLeft[i] === undefined) {
+                if (num.length > 1 && _oldLeft[0] !== undefined) {
+                    _scoreShapes[num[0]].left = _scoreShapes[num[0]].left - 18;
+                    _scoreShapes[num[i]].left += 8;
+                }
+                else{
+                    _scoreShapes[num[i]].left -= 2;
+                }
+                _oldLeft[i] = _scoreShapes[num[i]].left;
+            }
+            else {
+                _scoreShapes[num[i]].left = _oldLeft[i];
+            }
+            
+            _sprite.shapes.push(_scoreShapes[num[i]]);
+
+        }
         
-        _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
-        
-        _sprite.shapes.push(_scoreShapes[score]);
+//        if (score > 9) {            
+//            for (var i = 0, num = score.toString(); i < num.length; i++) {
+//                _scoreShapes[num[i]].left +
+//                _sprite.shapes.push(_scoreShapes[num[i]]);
+//            }
+//        }
+//        else {
+//            _sprite.shapes.push(_scoreShapes[score]);
+//        }
 
         return _sprite;
     };
