@@ -1,7 +1,8 @@
 function Score(enemy) {
     'use strict';
     
-    var _enemy = enemy;
+    var _enemy = enemy,
+        _defaultLeft = 430;
 
     var _sprite = {
         name : 'score',
@@ -13,10 +14,10 @@ function Score(enemy) {
     
     var _scoreShapes = [
         {
-            sTop        : 136,//sTop Sourse Top
+            sTop        : 136,//0
             sLeft       : 2,
             top         : 34,
-            left        : 420,
+            left        : _defaultLeft,
             width       : 90,
             height      : 108,
             dHeight     : 24,
@@ -25,14 +26,14 @@ function Score(enemy) {
             flipedImage : false
         },
         {
-            sTop        : 136,//2
+            sTop        : 136,//1
             sLeft       : 96,
             top         : 34,
-            left        : 420,
+            left        : _defaultLeft,
             width       : 82,
             height      : 108,
             dHeight     : 24,
-            dWidth      : 16,
+            dWidth      : 20,
             useSlice    : true,
             flipedImage : false
         },
@@ -40,7 +41,7 @@ function Score(enemy) {
             sTop        : 136,//2
             sLeft       : 175,
             top         : 34,
-            left        : 420,
+            left        : _defaultLeft,
             width       : 92,
             height      : 108,
             dHeight     : 24,
@@ -52,7 +53,7 @@ function Score(enemy) {
             sTop        : 136,//3
             sLeft       : 268,
             top         : 34,
-            left        : 420,
+            left        : _defaultLeft,
             width       : 95,
             height      : 108,
             dHeight     : 24,
@@ -64,7 +65,7 @@ function Score(enemy) {
             sTop        : 136,//4
             sLeft       : 364,
             top         : 34,
-            left        : 420,
+            left        : _defaultLeft,
             width       : 96,
             height      : 108,
             dHeight     : 24,
@@ -76,7 +77,7 @@ function Score(enemy) {
             sTop        : 136,//5
             sLeft       : 452,
             top         : 34,
-            left        : 420,
+            left        : _defaultLeft,
             width       : 96,
             height      : 108,
             dHeight     : 24,
@@ -88,7 +89,7 @@ function Score(enemy) {
             sTop        : 136,//6
             sLeft       : 548,
             top         : 34,
-            left        : 420,
+            left        : _defaultLeft,
             width       : 94,//640
             height      : 108,
             dHeight     : 24,
@@ -100,7 +101,7 @@ function Score(enemy) {
             sTop        : 136,//7
             sLeft       : 640,
             top         : 34,
-            left        : 420,
+            left        : _defaultLeft,
             width       : 94,
             height      : 108,
             dHeight     : 24,
@@ -112,7 +113,7 @@ function Score(enemy) {
             sTop        : 136,//8
             sLeft       : 734,
             top         : 34,
-            left        : 420,
+            left        : _defaultLeft,
             width       : 98,//828
             height      : 108,
             dHeight     : 24,
@@ -124,7 +125,7 @@ function Score(enemy) {
             sTop        : 136,//9
             sLeft       : 828,
             top         : 34,
-            left        : 420,
+            left        : _defaultLeft,
             width       : 98,
             height      : 108,
             dHeight     : 24,
@@ -137,7 +138,61 @@ function Score(enemy) {
     function _getResources() {
         return _sprite;
     }
+    
+    function _getFrameLeft(_num, _left, _c) {
+        for (var i = _c; i > 0; i--) {
+            var _frame =   {
+                sTop        : _scoreShapes[_num[i - 1]].sTop,
+                sLeft       : _scoreShapes[_num[i - 1]].sLeft,
+                top         : _scoreShapes[_num[i - 1]].top,
+                left        : _defaultLeft,
+                width       : _scoreShapes[_num[i - 1]].width,
+                height      : _scoreShapes[_num[i - 1]].height,
+                dHeight     : _scoreShapes[_num[i - 1]].dHeight,
+                dWidth      : _scoreShapes[_num[i - 1]].dWidth,
+                useSlice    : _scoreShapes[_num[i - 1]].useSlice,
+                flipedImage : _scoreShapes[_num[i - 1]].flipedImage
+            }
+            _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
 
+            _frame.left = _defaultLeft;
+            
+            _left -= 20;
+            
+            _frame.left = _left;
+            
+            _sprite.shapes.push(_frame);
+            
+            _left -= 5;
+        }       
+    }
+    
+    function _getFrameRight(_num, _left, _c) {                
+        for (var i = _c + 1, max = _c * 2; i <= max; i++) {
+            _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
+            var _frame =   {
+                 sTop        : _scoreShapes[_num[i - 1]].sTop,
+                 sLeft       : _scoreShapes[_num[i - 1]].sLeft,
+                 top         : _scoreShapes[_num[i - 1]].top,
+                 left        : _defaultLeft,
+                 width       : _scoreShapes[_num[i - 1]].width,
+                 height      : _scoreShapes[_num[i - 1]].height,
+                 dHeight     : _scoreShapes[_num[i - 1]].dHeight,
+                 dWidth      : _scoreShapes[_num[i - 1]].dWidth,
+                 useSlice    : _scoreShapes[_num[i - 1]].useSlice,
+                 flipedImage : _scoreShapes[_num[i - 1]].flipedImage
+             }
+
+            _frame.left = _defaultLeft;
+            
+            _frame.left = _left;
+
+            _sprite.shapes.push(_frame);
+             
+            _left = _left + 20 + 10;
+        }
+    }
+    
     this.getResources = function() {
         return _getResources();
     };
@@ -147,8 +202,7 @@ function Score(enemy) {
      * 
      * @returns {Background._sprite}
      */
-    var _oldLeft = [];
-    var _left = 0;
+
     this.get = function() {
         _sprite.frame = [];
         _sprite.shapes = [];
@@ -166,39 +220,69 @@ function Score(enemy) {
             flipedImage : false
         });
         
-        var score = _enemy.getScore();
+        /**
+         * 
+         * Das Anzeigen des Spielstandes.
+         */
+        var _score = _enemy.getScore();
 
-       
-        for (var i = 0, num = score.toString(); i < num.length; i++) {
-            _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0])); 
+        var _num = _score.toString();
+        var _len = _num.length;
+        
+        var m = _len % 2;
+        
+        /**
+         *  wie viel Elementen rechts und links.
+         *  Wenn score ist fünfstellig 21356, dann 2 Elementen befinden sich rechts und zwei Elementen links.
+         *  Das Element 3 befindet sich in der Mitte
+         *  z.B _len = 2; _len  / 1 = 1 ; 1 Element rechts und ein Element links.
+         */
+        var _c =  Math.floor(_len / 2); 
 
-            if (_oldLeft[i] === undefined) {
-                if (num.length > 1 && _oldLeft[0] !== undefined) {
-                    _scoreShapes[num[0]].left = _scoreShapes[num[0]].left - 18;
-                    _scoreShapes[num[i]].left += 8;
-                }
-                else{
-                    _scoreShapes[num[i]].left -= 2;
-                }
-                _oldLeft[i] = _scoreShapes[num[i]].left;
+        //ungerade Zahl
+        if (m === 1) {
+            //Es gibt kein Element rechts oder links.
+            //In der mitte ist nur ein Element platziert.
+            if (_c === 0) {
+                _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
+
+                _scoreShapes[_score].left = _defaultLeft;
+                
+                _scoreShapes[_score].left -= 10;
+                
+                _sprite.shapes.push(_scoreShapes[_score]);
             }
             else {
-                _scoreShapes[num[i]].left = _oldLeft[i];
-            }
-            
-            _sprite.shapes.push(_scoreShapes[num[i]]);
+                _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
 
+                //Das Element in der Mitte.
+                _scoreShapes[_num[_c]].left = _defaultLeft;
+                _scoreShapes[_num[_c]].left -= 10;
+                _sprite.shapes.push(_scoreShapes[_num[_c]]);
+                
+                var _left = _defaultLeft - 10 - 5;
+                
+                _getFrameLeft(_num, _left, _c);
+
+                _left = _defaultLeft + 10 + 5;
+                _getFrameRight(_num, _left, _c);
+            }
         }
-        
-//        if (score > 9) {            
-//            for (var i = 0, num = score.toString(); i < num.length; i++) {
-//                _scoreShapes[num[i]].left +
-//                _sprite.shapes.push(_scoreShapes[num[i]]);
-//            }
-//        }
-//        else {
-//            _sprite.shapes.push(_scoreShapes[score]);
-//        }
+        else {
+            if (_score > 0) {
+                var _left = _defaultLeft - 5;
+                _getFrameLeft(_num, _left, _c);
+
+                _left = _defaultLeft + 5;
+                _getFrameRight(_num, _left, _c);
+            }
+            else {
+                _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
+                _scoreShapes[0].left = _defaultLeft;
+                _scoreShapes[0].left -= 10;
+                _sprite.shapes.push(_scoreShapes[0]);
+            }
+        }
 
         return _sprite;
     };
