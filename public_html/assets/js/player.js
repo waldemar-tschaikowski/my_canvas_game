@@ -33,48 +33,213 @@ function  Player () {
     var _sprite =  {
         name : 'player',
         type : 'image',
-        spriteSources : [],
-        shapes : [{
-            top         : _top,
-            left        : _left,
-            width       : _width,
-            height      : _height,
-            flipedImage : false,
-            useSlice    : false
-        }],
-        frame : null
+        spriteSources : ['assets/img/spriter.png'],
+        shapes : [],
+        frame : []
     };
     
-    var _playerRun = [
-        'assets/img/gamer/gamer_run1.png',
-        'assets/img/gamer/gamer_run2.png',
-        'assets/img/gamer/gamer_run3.png',
-        'assets/img/gamer/gamer_run4.png',
-        'assets/img/gamer/gamer_run5.png',
-        'assets/img/gamer/gamer_run6.png'
-    ];
-        
-    var _playerStand = [
-        'assets/img/gamer/gamer_stand.png'
+    var _stateRun = [
+        {
+            sTop        : 345,//1
+            sLeft       : 75,
+            top         : _top,
+            left        : _left,
+            width       : 87,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 87,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//2
+            sLeft       : 160,
+            top         : _top,
+            left        : _left,
+            width       : 97,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 97,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//3
+            sLeft       : 257,
+            top         : _top,
+            left        : _left,
+            width       : 97,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 97,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//4
+            sLeft       : 354,
+            top         : _top,
+            left        : _left,
+            width       : 87,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 87,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//5
+            sLeft       : 447,
+            top         : _top,
+            left        : _left,
+            width       : 93,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 93,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//6
+            sLeft       : 540,
+            top         : _top,
+            left        : _left,
+            width       : 91,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 91,
+            useSlice    : false,
+            flipedImage : false
+        }
     ];
     
-    var _playerFall = [
-        'assets/img/gamer/gamer_fall1.png',
-        'assets/img/gamer/gamer_fall2.png',
-        'assets/img/gamer/gamer_fall3.png',
-        'assets/img/gamer/gamer_fall4.png',
-        'assets/img/gamer/gamer_fall5.png'
+     var _stateStand = [
+        {
+            sTop        : 224,//1
+            sLeft       : 75,
+            top         : _top,
+            left        : _left,
+            width       : 86,
+            height      : 99,
+            dHeight     : 99,
+            dWidth      : 86,
+            useSlice    : false,
+            flipedImage : false
+        }
+    ];
+    
+    var _stateDeath = [
+        {
+            sTop        : 715,//1
+            sLeft       : 73,
+            top         : _top,
+            left        : _left,
+            width       : 77,
+            height      : 103,
+            dHeight     : 103,
+            dWidth      : 77,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 715,//2
+            sLeft       : 150,
+            top         : _top,
+            left        : _left,
+            width       : 93,
+            height      : 103,
+            dHeight     : 103,
+            dWidth      : 93,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 715,//3
+            sLeft       : 243,
+            top         : _top,
+            left        : _left,
+            width       : 114,
+            height      : 103,
+            dHeight     : 103,
+            dWidth      : 114,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 715,//4
+            sLeft       : 357,
+            top         : _top,
+            left        : _left,
+            width       : 108,
+            height      : 103,
+            dHeight     : 103,
+            dWidth      : 108,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 715,//5
+            sLeft       : 465,
+            top         : _top,
+            left        : _left,
+            width       : 106,
+            height      : 103,
+            dHeight     : 103,
+            dWidth      : 106,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 834,//6
+            sLeft       : 72,
+            top         : _top,
+            left        : _left,
+            width       : 116,
+            height      : 80,
+            dHeight     : 80,
+            dWidth      : 116,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 834,//7
+            sLeft       : 188,
+            top         : _top,
+            left        : _left,
+            width       : 126,
+            height      : 80,
+            dHeight     : 80,
+            dWidth      : 126,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 834,//8
+            sLeft       : 314,
+            top         : _top,
+            left        : _left,
+            width       : 106,
+            height      : 123,
+            dHeight     : 80,
+            dWidth      : 123,
+            useSlice    : false,
+            flipedImage : false
+        },
+        {
+            sTop        : 834,//9
+            sLeft       : 437,
+            top         : _top,
+            left        : _left,
+            width       : 131,
+            height      : 80,
+            dHeight     : 80,
+            dWidth      : 131,
+            useSlice    : false,
+            flipedImage : false
+        },
     ];
 
-    /*
-     * playerRun, playerStand, playerFall - die werden zu einem Array gefasst,
-     * und sich in Cache bufindet. Aber besser in Programmcode diese als getrente
-     * Elemente zu betrachten.
-     * @type Number
-     */
     function _getResources() {
-        _sprite.spriteSources = _playerRun.concat(_playerStand, _playerFall);
-
         return _sprite;
     }
 
