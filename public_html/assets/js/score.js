@@ -2,7 +2,7 @@ function Score(enemy) {
     'use strict';
     
     var _enemy = enemy,
-        _defaultLeft = 430;
+        _defaultLeft = 404;
 
     var _sprite = {
         name : 'score',
@@ -139,60 +139,6 @@ function Score(enemy) {
         return _sprite;
     }
     
-    function _getFrameLeft(_num, _left, _c) {
-        for (var i = _c; i > 0; i--) {
-            var _frame =   {
-                sTop        : _scoreShapes[_num[i - 1]].sTop,
-                sLeft       : _scoreShapes[_num[i - 1]].sLeft,
-                top         : _scoreShapes[_num[i - 1]].top,
-                left        : _defaultLeft,
-                width       : _scoreShapes[_num[i - 1]].width,
-                height      : _scoreShapes[_num[i - 1]].height,
-                dHeight     : _scoreShapes[_num[i - 1]].dHeight,
-                dWidth      : _scoreShapes[_num[i - 1]].dWidth,
-                useSlice    : _scoreShapes[_num[i - 1]].useSlice,
-                flipedImage : _scoreShapes[_num[i - 1]].flipedImage
-            }
-            _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
-
-            _frame.left = _defaultLeft;
-            
-            _left -= 20;
-            
-            _frame.left = _left;
-            
-            _sprite.shapes.push(_frame);
-            
-            _left -= 5;
-        }       
-    }
-    
-    function _getFrameRight(_num, _left, _c) {                
-        for (var i = _c + 1, max = _c * 2; i <= max; i++) {
-            _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
-            var _frame =   {
-                 sTop        : _scoreShapes[_num[i - 1]].sTop,
-                 sLeft       : _scoreShapes[_num[i - 1]].sLeft,
-                 top         : _scoreShapes[_num[i - 1]].top,
-                 left        : _defaultLeft,
-                 width       : _scoreShapes[_num[i - 1]].width,
-                 height      : _scoreShapes[_num[i - 1]].height,
-                 dHeight     : _scoreShapes[_num[i - 1]].dHeight,
-                 dWidth      : _scoreShapes[_num[i - 1]].dWidth,
-                 useSlice    : _scoreShapes[_num[i - 1]].useSlice,
-                 flipedImage : _scoreShapes[_num[i - 1]].flipedImage
-             }
-
-            _frame.left = _defaultLeft;
-            
-            _frame.left = _left;
-
-            _sprite.shapes.push(_frame);
-             
-            _left = _left + 20 + 10;
-        }
-    }
-    
     this.getResources = function() {
         return _getResources();
     };
@@ -202,7 +148,6 @@ function Score(enemy) {
      * 
      * @returns {Background._sprite}
      */
-
     this.get = function() {
         _sprite.frame = [];
         _sprite.shapes = [];
@@ -229,59 +174,40 @@ function Score(enemy) {
         var _num = _score.toString();
         var _len = _num.length;
         
-        var m = _len % 2;
-        
-        /**
-         *  wie viel Elementen rechts und links.
-         *  Wenn score ist fünfstellig 21356, dann 2 Elementen befinden sich rechts und zwei Elementen links.
-         *  Das Element 3 befindet sich in der Mitte
-         *  z.B _len = 2; _len  / 1 = 1 ; 1 Element rechts und ein Element links.
-         */
-        var _c =  Math.floor(_len / 2); 
-
-        //ungerade Zahl
-        if (m === 1) {
-            //Es gibt kein Element rechts oder links.
-            //In der mitte ist nur ein Element platziert.
-            if (_c === 0) {
-                _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
-
-                _scoreShapes[_score].left = _defaultLeft;
-                
-                _scoreShapes[_score].left -= 10;
-                
-                _sprite.shapes.push(_scoreShapes[_score]);
-            }
-            else {
-                _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
-
-                //Das Element in der Mitte.
-                _scoreShapes[_num[_c]].left = _defaultLeft;
-                _scoreShapes[_num[_c]].left -= 10;
-                _sprite.shapes.push(_scoreShapes[_num[_c]]);
-                
-                var _left = _defaultLeft - 10 - 5;
-                
-                _getFrameLeft(_num, _left, _c);
-
-                _left = _defaultLeft + 10 + 5;
-                _getFrameRight(_num, _left, _c);
-            }
+        var _w = 0;
+        for (var i= 0; i < _len; i++) {
+            _w += 20;//Die Breite "20" eines Elements
         }
-        else {
-            if (_score > 0) {
-                var _left = _defaultLeft - 5;
-                _getFrameLeft(_num, _left, _c);
+        
+        _w += (_len - 1) * 5; // "5" die Abstand von Elementen
+        
+        var _offSetLeft = _defaultLeft - (_w / 2);
+        
+        for (var i= 0; i < _len; i++) {
+            _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
+            
+            _scoreShapes[_num[i]].left = _offSetLeft;
+            
+            _offSetLeft += 25;
+            
+            var _frame =   {
+                 sTop        : _scoreShapes[_num[i]].sTop,
+                 sLeft       : _scoreShapes[_num[i]].sLeft,
+                 top         : _scoreShapes[_num[i]].top,
+                 left        : _defaultLeft,
+                 width       : _scoreShapes[_num[i]].width,
+                 height      : _scoreShapes[_num[i]].height,
+                 dHeight     : _scoreShapes[_num[i]].dHeight,
+                 dWidth      : _scoreShapes[_num[i]].dWidth,
+                 useSlice    : _scoreShapes[_num[i]].useSlice,
+                 flipedImage : _scoreShapes[_num[i]].flipedImage
+             };
 
-                _left = _defaultLeft + 5;
-                _getFrameRight(_num, _left, _c);
-            }
-            else {
-                _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
-                _scoreShapes[0].left = _defaultLeft;
-                _scoreShapes[0].left -= 10;
-                _sprite.shapes.push(_scoreShapes[0]);
-            }
+            _frame.left = _defaultLeft;
+            
+            _frame.left = _offSetLeft;
+
+            _sprite.shapes.push(_frame);
         }
 
         return _sprite;

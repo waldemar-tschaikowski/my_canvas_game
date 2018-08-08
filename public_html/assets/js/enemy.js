@@ -9,7 +9,7 @@ function Enemy() {
         STEP = 2,
         SPEED = 0.2,
         _direction = -1,
-        _scoreDead = 99,
+        _scoreDead = 0,
         _flipedImage = false;
 
     var _sprite =  {
