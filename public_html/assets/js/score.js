@@ -2,7 +2,7 @@ function Score(enemy) {
     'use strict';
     
     var _enemy = enemy,
-        _defaultLeft = 404;
+        _defaultLeft = 454;
 
     var _sprite = {
         name : 'score',
@@ -158,7 +158,7 @@ function Score(enemy) {
             sTop        : 63,//sTop Sourse Top
             sLeft       : 283,
             top         : 10,
-            left        : 400,
+            left        : 450,
             width       : 58,
             height      : 25,
             useSlice    : true,
@@ -188,7 +188,7 @@ function Score(enemy) {
             
             _scoreShapes[_num[i]].left = _offSetLeft;
             
-            _offSetLeft += 25;
+            _offSetLeft += 25;// Die Breite plus den Abstand
             
             var _frame =   {
                  sTop        : _scoreShapes[_num[i]].sTop,

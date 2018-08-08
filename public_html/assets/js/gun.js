@@ -5,7 +5,7 @@ function Gun (player) {
         _height = 20,
         _top = 350,
         _left = 138,
-        STEP = 4,
+        STEP = 5,
 //        ALLOWED_DISTANCE_BULLET = 1000,
         _player = player,
         _leftBullet,

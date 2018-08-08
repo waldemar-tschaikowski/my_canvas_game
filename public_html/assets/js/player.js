@@ -39,7 +39,7 @@ function  Player () {
             left        : _left,
             width       : _width,
             height      : _height,
-            flipedImage :  false,
+            flipedImage : false,
             useSlice    : false
         }],
         frame : null
@@ -49,9 +49,9 @@ function  Player () {
         'assets/img/gamer/gamer_run1.png',
         'assets/img/gamer/gamer_run2.png',
         'assets/img/gamer/gamer_run3.png',
+        'assets/img/gamer/gamer_run4.png',
         'assets/img/gamer/gamer_run5.png',
-        'assets/img/gamer/gamer_run6.png',
-        'assets/img/gamer/gamer_run7.png'
+        'assets/img/gamer/gamer_run6.png'
     ];
         
     var _playerStand = [
