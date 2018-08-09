@@ -17,7 +17,11 @@ function GameCanvasRender() {
             //Soll das Objekt abgeschnitten werden.
             //@TODO das funktionniert nur für Background. das muss "shape.left - MY_camera.xView" gemacht werden.
             if (shape.useSlice) {
-//                console.log(img);
+                //den Wert 0 ist für Beckground
+                if (shape.left !== 0) {
+                    shape.left -= MY_camera.xView;
+                }
+                
                 ctx.drawImage(img, shape.sLeft, shape.sTop, shape.width, shape.height, shape.left, shape.top, (shape.dWidth) ? shape.dWidth : shape.width, (shape.dHeight) ? shape.dHeight : shape.height);
                 return;
             }

@@ -37,7 +37,7 @@ function Enemy() {
             flipedImage : false,
             useSlice    : false
         }],
-        frame : null
+        frames : null
     };
     
     function _getResources () {
@@ -68,7 +68,7 @@ function Enemy() {
     this.get = function() {
         var index = Math.floor(_indexPos) % _sprite.spriteSources.length;
         
-        _sprite.frame  = MY_Game_Resources.get(_sprite.spriteSources[index]);
+        _sprite.frames  = MY_Game_Resources.get(_sprite.spriteSources[index]);
         
         _sprite.shapes = [{
             sTop        : 0,//sTop Sourse Top

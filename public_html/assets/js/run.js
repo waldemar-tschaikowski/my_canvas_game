@@ -139,8 +139,8 @@
             var bg = background.get();
             var pl = player.get();
 
-            gameCanvasRender.draw(bg.frame, bg.shapes[0]);            
-            gameCanvasRender.draw(pl.frame, pl.shapes[0]);
+            gameCanvasRender.draw(bg.frames, bg.shapes[0]);            
+            gameCanvasRender.draw(pl.frames, pl.shapes[0]);
             
             return;
         } 
@@ -220,15 +220,16 @@
                 if (_sprite === null) {
                     continue;
                 }
-                //Ein Objekt kann mehrere copy von sich selbt beinhalten. so genannte Shape.
+                //Ein Objekt kann mehrere copy von sich selbt beinhalten.
+                //z.b Kugeln
                 for(var z = 0; z < _sprite.shapes.length; z++) {
-                    if (Array.isArray(_sprite.frame)) {
+                    if (Array.isArray(_sprite.frames)) {
                         if (_sprite.shapes[z]) {
-                           gameCanvasRender.draw(_sprite.frame[z], _sprite.shapes[z]);
+                           gameCanvasRender.draw(_sprite.frames[z], _sprite.shapes[z]);
                         }
                     }
                     else {
-                        gameCanvasRender.draw(_sprite.frame, _sprite.shapes[z]);
+                        gameCanvasRender.draw(_sprite.frames, _sprite.shapes[z]);
                     }
                     
                     if (collisionDetection.checkObjectCollision(drawRenderObjects[i], _sprite.shapes[z])) {
@@ -238,7 +239,7 @@
                             }
                         }, gameStatus);
                     }
-                };
+                };                
             }
         }
         catch (e) {

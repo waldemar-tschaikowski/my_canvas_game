@@ -20,7 +20,7 @@ function Background () {
             mapWidth    : _mapWidth,
             mapHeight   : _mapHeight
         }],
-        frame : null
+        frames : null
     };
     
     function _getResources() {
@@ -37,7 +37,7 @@ function Background () {
      * @returns {Background._sprite}
      */
     this.get = function() {
-        _sprite.frame = MY_Game_Resources.get(_sprite.spriteSources[0]);
+        _sprite.frames = MY_Game_Resources.get(_sprite.spriteSources[0]);
         
         _sprite.shapes = [{
             sTop        : MY_camera.yView,//sTop Sourse Top

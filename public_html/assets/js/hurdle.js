@@ -20,7 +20,7 @@ function Hurdle () {
             useSlice    : false,
             flipedImage : false
         }],
-        frame   : null
+        frames   : null
     };
     
     function _getResources () {
@@ -40,7 +40,7 @@ function Hurdle () {
     };    
 
     this.get = function() {
-        _sprite.frame = MY_Game_Resources.get(_sprite.spriteSources[0]);
+        _sprite.frames = MY_Game_Resources.get(_sprite.spriteSources[0]);
         _sprite.shapes[0].left = _left;
         
         return _sprite;

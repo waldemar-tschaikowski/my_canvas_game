@@ -9,7 +9,7 @@ function Score(enemy) {
         type : 'image',
         spriteSources  : ['assets/img/score.png'],
         shapes : [],
-        frame : []
+        frames : []
     };
     
     var _scoreShapes = [
@@ -149,10 +149,10 @@ function Score(enemy) {
      * @returns {Background._sprite}
      */
     this.get = function() {
-        _sprite.frame = [];
+        _sprite.frames = [];
         _sprite.shapes = [];
         
-        _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
+        _sprite.frames.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
 
         _sprite.shapes.push({
             sTop        : 63,//sTop Sourse Top
@@ -184,7 +184,7 @@ function Score(enemy) {
         var _offSetLeft = _defaultLeft - (_w / 2);
         
         for (var i= 0; i < _len; i++) {
-            _sprite.frame.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
+            _sprite.frames.push(MY_Game_Resources.get(_sprite.spriteSources[0]));
             
             _scoreShapes[_num[i]].left = _offSetLeft;
             

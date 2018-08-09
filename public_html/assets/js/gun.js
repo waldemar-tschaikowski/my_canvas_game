@@ -16,7 +16,7 @@ function Gun (player) {
         type : 'image',
         spriteSources  : ['assets/img/gamer/bullet.png'],
         shapes : [],// pattern Flyweight. Mehrere Objekte von gleichem Datentype, aber verschiedene Größen haben.
-        frame : null
+        frames : null
     };
 
     var audio = {
@@ -43,7 +43,7 @@ function Gun (player) {
         
         _topBullet = _player.getTop() + 36;
         
-        _sprite.frame = MY_Game_Resources.get(_sprite.spriteSources);
+        _sprite.frames = MY_Game_Resources.get(_sprite.spriteSources);
         
         _sprite.shapes.push({
             top         : _topBullet,

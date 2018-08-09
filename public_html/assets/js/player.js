@@ -35,85 +35,160 @@ function  Player () {
         type : 'image',
         spriteSources : ['assets/img/spriter.png'],
         shapes : [],
-        frame : []
+        frames : []
     };
     
-    var _stateRun = [
+    var _stateRunRight = [
         {
             sTop        : 345,//1
-            sLeft       : 75,
+            sLeft       : 66,
             top         : _top,
             left        : _left,
-            width       : 87,
+            width       : 94,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 87,
-            useSlice    : false,
+            dWidth      : 94,
+            useSlice    : true,
             flipedImage : false
         },
         {
             sTop        : 345,//2
-            sLeft       : 160,
+            sLeft       : 162,
             top         : _top,
             left        : _left,
-            width       : 97,
+            width       : 98,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 97,
-            useSlice    : false,
+            dWidth      : 98,
+            useSlice    : true,
             flipedImage : false
         },
         {
             sTop        : 345,//3
-            sLeft       : 257,
-            top         : _top,
-            left        : _left,
-            width       : 97,
-            height      : 112,
-            dHeight     : 112,
-            dWidth      : 97,
-            useSlice    : false,
-            flipedImage : false
-        },
-        {
-            sTop        : 345,//4
-            sLeft       : 354,
-            top         : _top,
-            left        : _left,
-            width       : 87,
-            height      : 112,
-            dHeight     : 112,
-            dWidth      : 87,
-            useSlice    : false,
-            flipedImage : false
-        },
-        {
-            sTop        : 345,//5
-            sLeft       : 447,
+            sLeft       : 256,
             top         : _top,
             left        : _left,
             width       : 93,
             height      : 112,
             dHeight     : 112,
             dWidth      : 93,
-            useSlice    : false,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//4
+            sLeft       : 349,
+            top         : _top,
+            left        : _left,
+            width       : 92,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 92,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//5
+            sLeft       : 444,
+            top         : _top,
+            left        : _left,
+            width       : 96,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 96,
+            useSlice    : true,
             flipedImage : false
         },
         {
             sTop        : 345,//6
-            sLeft       : 540,
+            sLeft       : 537,
             top         : _top,
             left        : _left,
-            width       : 91,
+            width       : 92,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 91,
-            useSlice    : false,
+            dWidth      : 92,
+            useSlice    : true,
             flipedImage : false
         }
     ];
     
-     var _stateStand = [
+     var _stateRunLeft = [
+        {
+            sTop        : 345,//1
+            sLeft       : 1110,
+            top         : _top,
+            left        : _left,
+            width       : 97,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 97,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//2
+            sLeft       : 1012,
+            top         : _top,
+            left        : _left,
+            width       : 98,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 98,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//3
+            sLeft       : 919,
+            top         : _top,
+            left        : _left,
+            width       : 92,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 92,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//4
+            sLeft       : 826,
+            top         : _top,
+            left        : _left,
+            width       : 92,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 92,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//5
+            sLeft       : 731,
+            top         : _top,
+            left        : _left,
+            width       : 95,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 95,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 345,//6
+            sLeft       : 639,
+            top         : _top,
+            left        : _left,
+            width       : 92,
+            height      : 112,
+            dHeight     : 112,
+            dWidth      : 92,
+            useSlice    : true,
+            flipedImage : false
+        }
+    ];
+    
+     var _stateStandRight = [
         {
             sTop        : 224,//1
             sLeft       : 75,
@@ -123,7 +198,22 @@ function  Player () {
             height      : 99,
             dHeight     : 99,
             dWidth      : 86,
-            useSlice    : false,
+            useSlice    : true,
+            flipedImage : false
+        }
+    ];
+    
+    var _stateStandLeft = [
+        {
+            sTop        : 224,//1
+            sLeft       : 1110,
+            top         : _top,
+            left        : _left,
+            width       : 97,
+            height      : 119,
+            dHeight     : 119,
+            dWidth      : 97,
+            useSlice    : true,
             flipedImage : false
         }
     ];
@@ -138,7 +228,7 @@ function  Player () {
             height      : 103,
             dHeight     : 103,
             dWidth      : 77,
-            useSlice    : false,
+            useSlice    : true,
             flipedImage : false
         },
         {
@@ -150,7 +240,7 @@ function  Player () {
             height      : 103,
             dHeight     : 103,
             dWidth      : 93,
-            useSlice    : false,
+            useSlice    : true,
             flipedImage : false
         },
         {
@@ -162,7 +252,7 @@ function  Player () {
             height      : 103,
             dHeight     : 103,
             dWidth      : 114,
-            useSlice    : false,
+            useSlice    : true,
             flipedImage : false
         },
         {
@@ -174,7 +264,7 @@ function  Player () {
             height      : 103,
             dHeight     : 103,
             dWidth      : 108,
-            useSlice    : false,
+            useSlice    : true,
             flipedImage : false
         },
         {
@@ -186,7 +276,7 @@ function  Player () {
             height      : 103,
             dHeight     : 103,
             dWidth      : 106,
-            useSlice    : false,
+            useSlice    : true,
             flipedImage : false
         },
         {
@@ -198,7 +288,7 @@ function  Player () {
             height      : 80,
             dHeight     : 80,
             dWidth      : 116,
-            useSlice    : false,
+            useSlice    : true,
             flipedImage : false
         },
         {
@@ -210,7 +300,7 @@ function  Player () {
             height      : 80,
             dHeight     : 80,
             dWidth      : 126,
-            useSlice    : false,
+            useSlice    : true,
             flipedImage : false
         },
         {
@@ -218,11 +308,11 @@ function  Player () {
             sLeft       : 314,
             top         : _top,
             left        : _left,
-            width       : 106,
-            height      : 123,
+            width       : 123,
+            height      : 80,
             dHeight     : 80,
             dWidth      : 123,
-            useSlice    : false,
+            useSlice    : true,
             flipedImage : false
         },
         {
@@ -234,10 +324,138 @@ function  Player () {
             height      : 80,
             dHeight     : 80,
             dWidth      : 131,
-            useSlice    : false,
+            useSlice    : true,
+            flipedImage : false
+        }
+    ];
+    
+    
+    var _stateJumpRight = [
+        {
+            sTop        : 582,//1
+            sLeft       : 66,
+            top         : _top,
+            left        : _left,
+            width       : 114,
+            height      : 120,
+            dHeight     : 120,
+            dWidth      : 114,
+            useSlice    : true,
             flipedImage : false
         },
+        {
+            sTop        : 582,//2
+            sLeft       : 612,
+            top         : _top,
+            left        : _left,
+            width       : 100,
+            height      : 120,
+            dHeight     : 120,
+            dWidth      : 100,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 582,//3
+            sLeft       : 281,
+            top         : _top,
+            left        : _left,
+            width       : 98,
+            height      : 120,
+            dHeight     : 120,
+            dWidth      : 98,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 582,//4
+            sLeft       : 379,
+            top         : _top,
+            left        : _left,
+            width       : 102,
+            height      : 120,
+            dHeight     : 120,
+            dWidth      : 102,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 582,//5
+            sLeft       : 482,
+            top         : _top,
+            left        : _left,
+            width       : 98,
+            height      : 120,
+            dHeight     : 120,
+            dWidth      : 98,
+            useSlice    : true,
+            flipedImage : false
+        }
     ];
+    
+    var _stateJumpLeft = [
+        {
+            sTop        : 582,//1
+            sLeft       : 1094,
+            top         : _top,
+            left        : _left,
+            width       : 113,
+            height      : 120,
+            dHeight     : 120,
+            dWidth      : 113,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 582,//2
+            sLeft       : 991,
+            top         : _top,
+            left        : _left,
+            width       : 103,
+            height      : 120,
+            dHeight     : 120,
+            dWidth      : 103,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 582,//3
+            sLeft       : 893,
+            top         : _top,
+            left        : _left,
+            width       : 98,
+            height      : 120,
+            dHeight     : 120,
+            dWidth      : 98,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 582,//4
+            sLeft       : 790,
+            top         : _top,
+            left        : _left,
+            width       : 102,
+            height      : 120,
+            dHeight     : 120,
+            dWidth      : 102,
+            useSlice    : true,
+            flipedImage : false
+        },
+        {
+            sTop        : 582,//5
+            sLeft       : 693,
+            top         : _top,
+            left        : _left,
+            width       : 98,
+            height      : 120,
+            dHeight     : 120,
+            dWidth      : 98,
+            useSlice    : true,
+            flipedImage : false
+        }
+    ];
+    
 
     function _getResources() {
         return _sprite;
@@ -286,28 +504,43 @@ function  Player () {
      * @type Number
      */
     this.get = function() {
-        _sprite.shapes[0].flipedImage = (_flipedImage) ? true : false;
+        _sprite.frames = MY_Game_Resources.get(_sprite.spriteSources[0]);
 
         //Get Frame für Kollision
         if (_collision) {
             //den letzten Frame anzeigen, wenn er runter gefallen ist.
-            if (_indexCollisionsFrames === _playerFall.length) {
-                _indexCollisionsFrames = _playerFall.length - 1;
+            if (_indexCollisionsFrames < _stateDeath.length - 1) {
+                _indexCollisionsFrames += 0.2;
+                _top += 0.8;
+            }
+            else if (_top < 346) {
+                _top = 346;// Fehlt sofort auf den Boden
             }
             
-            _top += 3;
+            var index =  Math.floor(_indexCollisionsFrames) % _stateDeath.length;
+        
+            _stateDeath[index].left = _left;
+            _stateDeath[index].top = _top;
 
-            _sprite.frame = MY_Game_Resources.get(_playerFall[_indexCollisionsFrames++]);
-            
-            _sprite.shapes[0].top = _top;
+            _stateDeath[index].flipedImage = (_flipedImage) ? true : false;
+
+            _sprite.shapes = [_stateDeath[index]];
             
             return _sprite;
         }
 
         if (_playerStanding && !_jumping) {
-            _sprite.frame = MY_Game_Resources.get(_playerStand[0]);
+            var _standDirection = _stateStandRight;
             
-            _sprite.shapes[0].top = _top;
+            //ist das Bild nach links gedreht.
+            if (_flipedImage) {
+                _standDirection = _stateStandLeft;
+            }
+        
+            _standDirection[0].top  = _top;
+            _standDirection[0].left = _left;
+            
+            _sprite.shapes = _standDirection;
             
             return _sprite;
         }
@@ -338,19 +571,42 @@ function  Player () {
                 
                 _x_velocity *= 0.9;
             }
+        
+            //in welche Richtung läuft er.
+            var _runDirection = _stateRunRight;
+            if (_flipedImage) {
+                _runDirection = _stateRunLeft;
+            }
 
-            _sprite.shapes[0].top = _top;
-        }
-        else {
-            _sprite.shapes[0].top = TOP_DEFAULT;
+            var index =  Math.floor(_indexRunPlayer) % _runDirection.length;
+            
+            _runDirection[index].top = _top;
+            _runDirection[index].top = TOP_DEFAULT;
+       
+        
+            _runDirection[index].left = _left;
+
+            _sprite.shapes = [_runDirection[index]];
+
+            return _sprite;
         }
         
-        _sprite.shapes[0].left = _left;
+                
+        //in welche Richtung läuft er.
+        var _runDirection = _stateRunRight;
+        if (_flipedImage) {
+            _runDirection = _stateRunLeft;
+        }
         
-        var index =  Math.floor(_indexRunPlayer) % _playerRun.length;
-
-        _sprite.frame = MY_Game_Resources.get(_playerRun[index]);        
-
+        var index =  Math.floor(_indexRunPlayer) % _runDirection.length;
+        
+        _runDirection[index].top = TOP_DEFAULT;
+       
+        
+        _runDirection[index].left = _left;
+        
+        _sprite.shapes = [_runDirection[index]];
+        
         return _sprite;
     };
 
