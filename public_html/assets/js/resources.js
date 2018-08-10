@@ -9,17 +9,17 @@ function Resources() {
         if (urlOrArr.name === 'background') {
             var map = document.createElement("canvas").getContext("2d");
 
-            map.canvas.width = urlOrArr.shapes[0].mapWidth;
-            map.canvas.height = urlOrArr.shapes[0].mapHeight;
+            map.canvas.width = urlOrArr.shapes.background[0].mapWidth;
+            map.canvas.height = urlOrArr.shapes.background[0].mapHeight;
 
             resourceCache[urlOrArr.spriteSources[0]] = false;
             var img = new Image();
             
             img.src = urlOrArr.spriteSources[0];
-            img.width = urlOrArr.shapes[0].width;
-            img.height = urlOrArr.shapes[0].height;
-            img.top = urlOrArr.shapes[0].top;
-            img.left = urlOrArr.shapes[0].left;
+            img.width = urlOrArr.shapes.background[0].width;
+            img.height = urlOrArr.shapes.background[0].height;
+            img.top = urlOrArr.shapes.background[0].top;
+            img.left = urlOrArr.shapes.background[0].left;
             
             img.onload = function() {
                 //readyCallbacks.forEach(function(func) { func(); });
@@ -27,7 +27,7 @@ function Resources() {
                 var left = 0;
                 var width = 2560;
                 do {
-                    map.drawImage(this, left, 0, urlOrArr.shapes[0].width, urlOrArr.shapes[0].height);
+                    map.drawImage(this, left, 0, urlOrArr.shapes.background[0].width, urlOrArr.shapes.background[0].height);
 
                     left += width - 2; //@TODO das Bild hat links 2px breit den weißen Bereich
 

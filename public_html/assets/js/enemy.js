@@ -29,15 +29,19 @@ function Enemy() {
             'assets/img/monster/monster11.png',
             'assets/img/monster/monster12.png'
         ],
-        shapes : [{
-            width       : _width,
-            height      : _height,
-            top         : _top,
-            left        : _left,
-            flipedImage : false,
-            useSlice    : false
-        }],
-        frames : null
+        shapes : {
+            enemy : [{
+                width       : _width,
+                height      : _height,
+                top         : _top,
+                left        : _left,
+                flipedImage : false,
+                useSlice    : false
+            }]
+        },
+        images : {
+            enemy: null
+        }
     };
     
     function _getResources () {
@@ -68,9 +72,9 @@ function Enemy() {
     this.get = function() {
         var index = Math.floor(_indexPos) % _sprite.spriteSources.length;
         
-        _sprite.frames  = MY_Game_Resources.get(_sprite.spriteSources[index]);
+        _sprite.images.enemy = MY_Game_Resources.get(_sprite.spriteSources[index]);
         
-        _sprite.shapes = [{
+        _sprite.shapes.enemy = [{
             sTop        : 0,//sTop Sourse Top
             sLeft       : 0,
             top         : _top,

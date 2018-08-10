@@ -12,15 +12,19 @@ function Background () {
         name : 'background',
         type : 'image',
         spriteSources  : ['assets/img/background.png'],
-        shapes : [{
-            width       : _width,
-            height      : _height,
-            top         : _top,
-            left        : _left,
-            mapWidth    : _mapWidth,
-            mapHeight   : _mapHeight
-        }],
-        frames : null
+        shapes : {
+            background : [{
+                width       : _width,
+                height      : _height,
+                top         : _top,
+                left        : _left,
+                mapWidth    : _mapWidth,
+                mapHeight   : _mapHeight
+            }]
+        },
+        images : {
+            background : null
+        }
     };
     
     function _getResources() {
@@ -37,9 +41,9 @@ function Background () {
      * @returns {Background._sprite}
      */
     this.get = function() {
-        _sprite.frames = MY_Game_Resources.get(_sprite.spriteSources[0]);
+        _sprite.images.background = MY_Game_Resources.get(_sprite.spriteSources[0]);
         
-        _sprite.shapes = [{
+        _sprite.shapes.background = [{
             sTop        : MY_camera.yView,//sTop Sourse Top
             sLeft       : MY_camera.xView,
             top         : 0,

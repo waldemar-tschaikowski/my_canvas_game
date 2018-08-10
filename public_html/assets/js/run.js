@@ -92,12 +92,33 @@
         collisionDetection = new CollisionDetection();
         
         collisionDetection.addCollisionsObjects(player,[
-            hurdle,
-            enemy
+            {
+                hurdle : {
+                    object : hurdle,
+                    images : [
+                        'scheisse'
+                    ]
+                }
+            },
+            {
+                enemy : {
+                    object : enemy,
+                    images : [
+                        'enemy'
+                    ]
+                }
+            }
         ]);
     
         collisionDetection.addCollisionsObjects(enemy,[
-            gun
+            {
+                gun : {
+                    object : gun,
+                    images : [
+                        'bullet'
+                    ]
+                }
+            }
         ]);
         
         //-- Start--//
@@ -139,8 +160,8 @@
             var bg = background.get();
             var pl = player.get();
 
-            gameCanvasRender.draw(bg.frames, bg.shapes[0]);            
-            gameCanvasRender.draw(pl.frames, pl.shapes[0]);
+            gameCanvasRender.draw(bg.images.background, bg.shapes.background[0]);            
+            gameCanvasRender.draw(pl.images.player, pl.shapes.player[0]);
             
             return;
         } 
@@ -220,26 +241,26 @@
                 if (_sprite === null) {
                     continue;
                 }
-                //Ein Objekt kann mehrere copy von sich selbt beinhalten.
-                //z.b Kugeln
-                for(var z = 0; z < _sprite.shapes.length; z++) {
-                    if (Array.isArray(_sprite.frames)) {
-                        if (_sprite.shapes[z]) {
-                           gameCanvasRender.draw(_sprite.frames[z], _sprite.shapes[z]);
+
+                for (var img in _sprite.images) {
+                    if (_sprite.shapes.hasOwnProperty(img)) {
+                        for(var z = 0; z < _sprite.shapes[img].length; z++) {
+                            if (collisionDetection.checkObjectCollision(drawRenderObjects[i], _sprite.shapes[img][z])) {
+                            
+                                drawRenderObjects[i].onCollision(function(gameOver) {
+                                    if (gameOver) {
+                                        gameStatus.gameOver = true;
+                                    }
+                                }, gameStatus);
+                            }
+                            gameCanvasRender.draw(_sprite.images[img], _sprite.shapes[img][z]);
                         }
                     }
                     else {
-                        gameCanvasRender.draw(_sprite.frames, _sprite.shapes[z]);
+                        console.log(_sprite);
+                        throw new Error('Objekt ist falsch konfiguriert' + _sprite);
                     }
-                    
-                    if (collisionDetection.checkObjectCollision(drawRenderObjects[i], _sprite.shapes[z])) {
-                        drawRenderObjects[i].onCollision(function(gameOver) {
-                            if (gameOver) {
-                                gameStatus.gameOver = true;
-                            }
-                        }, gameStatus);
-                    }
-                };                
+                }              
             }
         }
         catch (e) {

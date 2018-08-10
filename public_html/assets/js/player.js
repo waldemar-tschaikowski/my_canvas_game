@@ -22,7 +22,7 @@ function  Player () {
         _x_velocity = X_VELOCITY_DEFAULT,
         STEP = 20,
         SPEED = 0.2,
-        _flipedImage = false;
+        _useLeftDirection = false;
 
 //    var GameStateEnum = {
 //        Ready: 0,
@@ -34,82 +34,62 @@ function  Player () {
         name : 'player',
         type : 'image',
         spriteSources : ['assets/img/spriter.png'],
-        shapes : [],
-        frames : []
+        shapes : {
+            player : []
+        },
+        images : {
+            player : null
+        }
     };
     
     var _stateRunRight = [
         {
             sTop        : 345,//1
             sLeft       : 66,
-            top         : _top,
-            left        : _left,
             width       : 94,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 94,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 94
         },
         {
             sTop        : 345,//2
             sLeft       : 162,
-            top         : _top,
-            left        : _left,
             width       : 98,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 98,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 98
         },
         {
             sTop        : 345,//3
             sLeft       : 256,
-            top         : _top,
-            left        : _left,
             width       : 93,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 93,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 93
         },
         {
             sTop        : 345,//4
             sLeft       : 349,
-            top         : _top,
-            left        : _left,
             width       : 92,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 92,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 92
         },
         {
             sTop        : 345,//5
             sLeft       : 444,
-            top         : _top,
-            left        : _left,
             width       : 96,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 96,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 96
         },
         {
             sTop        : 345,//6
             sLeft       : 537,
-            top         : _top,
-            left        : _left,
             width       : 92,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 92,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 92
         }
     ];
     
@@ -117,74 +97,50 @@ function  Player () {
         {
             sTop        : 345,//1
             sLeft       : 1110,
-            top         : _top,
-            left        : _left,
             width       : 97,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 97,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 97
         },
         {
             sTop        : 345,//2
             sLeft       : 1012,
-            top         : _top,
-            left        : _left,
             width       : 98,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 98,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 98
         },
         {
             sTop        : 345,//3
             sLeft       : 919,
-            top         : _top,
-            left        : _left,
             width       : 92,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 92,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 92
         },
         {
             sTop        : 345,//4
             sLeft       : 826,
-            top         : _top,
-            left        : _left,
             width       : 92,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 92,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 92
         },
         {
             sTop        : 345,//5
             sLeft       : 731,
-            top         : _top,
-            left        : _left,
             width       : 95,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 95,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 95
         },
         {
             sTop        : 345,//6
             sLeft       : 639,
-            top         : _top,
-            left        : _left,
             width       : 92,
             height      : 112,
             dHeight     : 112,
-            dWidth      : 92,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 92
         }
     ];
     
@@ -192,14 +148,10 @@ function  Player () {
         {
             sTop        : 224,//1
             sLeft       : 75,
-            top         : _top,
-            left        : _left,
             width       : 86,
             height      : 99,
             dHeight     : 99,
-            dWidth      : 86,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 86
         }
     ];
     
@@ -207,252 +159,247 @@ function  Player () {
         {
             sTop        : 224,//1
             sLeft       : 1110,
-            top         : _top,
-            left        : _left,
             width       : 97,
             height      : 119,
             dHeight     : 119,
-            dWidth      : 97,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 97
         }
     ];
     
-    var _stateDeath = [
+    var _stateDeathRight = [
         {
             sTop        : 715,//1
             sLeft       : 73,
-            top         : _top,
-            left        : _left,
             width       : 77,
             height      : 103,
             dHeight     : 103,
-            dWidth      : 77,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 77
         },
         {
             sTop        : 715,//2
             sLeft       : 150,
-            top         : _top,
-            left        : _left,
             width       : 93,
             height      : 103,
             dHeight     : 103,
-            dWidth      : 93,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 93
         },
         {
             sTop        : 715,//3
             sLeft       : 243,
-            top         : _top,
-            left        : _left,
             width       : 114,
             height      : 103,
             dHeight     : 103,
-            dWidth      : 114,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 114
         },
         {
             sTop        : 715,//4
             sLeft       : 357,
-            top         : _top,
-            left        : _left,
             width       : 108,
             height      : 103,
             dHeight     : 103,
-            dWidth      : 108,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 108
         },
         {
             sTop        : 715,//5
             sLeft       : 465,
-            top         : _top,
-            left        : _left,
             width       : 106,
             height      : 103,
             dHeight     : 103,
-            dWidth      : 106,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 106
         },
         {
             sTop        : 834,//6
             sLeft       : 72,
-            top         : _top,
-            left        : _left,
             width       : 116,
             height      : 80,
             dHeight     : 80,
-            dWidth      : 116,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 116
         },
         {
             sTop        : 834,//7
             sLeft       : 188,
-            top         : _top,
-            left        : _left,
             width       : 126,
             height      : 80,
             dHeight     : 80,
-            dWidth      : 126,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 126
         },
         {
             sTop        : 834,//8
             sLeft       : 314,
-            top         : _top,
-            left        : _left,
             width       : 123,
             height      : 80,
             dHeight     : 80,
-            dWidth      : 123,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 123
         },
         {
             sTop        : 834,//9
             sLeft       : 437,
-            top         : _top,
-            left        : _left,
             width       : 131,
             height      : 80,
             dHeight     : 80,
-            dWidth      : 131,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 131
+        }
+    ];
+    
+    var _stateDeathLeft = [
+        {
+            sTop        : 715,//1
+            sLeft       : 1120,
+            width       : 83,
+            height      : 103,
+            dHeight     : 103,
+            dWidth      : 83
+        },
+        {
+            sTop        : 715,//2
+            sLeft       : 1026,
+            width       : 93,
+            height      : 103,
+            dHeight     : 103,
+            dWidth      : 93
+        },
+        {
+            sTop        : 715,//3
+            sLeft       : 915,
+            width       : 110,
+            height      : 103,
+            dHeight     : 103,
+            dWidth      : 110
+        },
+        {
+            sTop        : 715,//4
+            sLeft       : 806,
+            width       : 108,
+            height      : 103,
+            dHeight     : 103,
+            dWidth      : 108
+        },
+        {
+            sTop        : 715,//5
+            sLeft       : 694,
+            width       : 112,
+            height      : 103,
+            dHeight     : 103,
+            dWidth      : 112
+        },
+        {
+            sTop        : 834,//6
+            sLeft       : 1087,
+            width       : 116,
+            height      : 80,
+            dHeight     : 80,
+            dWidth      : 116
+        },
+        {
+            sTop        : 834,//7
+            sLeft       : 957,
+            width       : 126,
+            height      : 80,
+            dHeight     : 80,
+            dWidth      : 126
+        },
+        {
+            sTop        : 834,//8
+            sLeft       : 835,
+            width       : 123,
+            height      : 80,
+            dHeight     : 80,
+            dWidth      : 123
+        },
+        {
+            sTop        : 834,//9
+            sLeft       : 699,
+            width       : 131,
+            height      : 80,
+            dHeight     : 80,
+            dWidth      : 131
         }
     ];
     
     
-    var _stateJumpRight = [
+    var _shapesJumpRight = [
         {
             sTop        : 582,//1
             sLeft       : 66,
-            top         : _top,
-            left        : _left,
             width       : 114,
             height      : 120,
             dHeight     : 120,
-            dWidth      : 114,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 114
         },
         {
             sTop        : 582,//2
-            sLeft       : 612,
-            top         : _top,
-            left        : _left,
+            sLeft       : 180,
             width       : 100,
             height      : 120,
             dHeight     : 120,
-            dWidth      : 100,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 100
         },
         {
             sTop        : 582,//3
             sLeft       : 281,
-            top         : _top,
-            left        : _left,
             width       : 98,
             height      : 120,
             dHeight     : 120,
-            dWidth      : 98,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 98
         },
         {
             sTop        : 582,//4
             sLeft       : 379,
-            top         : _top,
-            left        : _left,
             width       : 102,
             height      : 120,
             dHeight     : 120,
-            dWidth      : 102,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 102
         },
         {
             sTop        : 582,//5
             sLeft       : 482,
-            top         : _top,
-            left        : _left,
             width       : 98,
             height      : 120,
             dHeight     : 120,
-            dWidth      : 98,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 98
         }
     ];
     
-    var _stateJumpLeft = [
+    var _shapesJumpLeft = [
         {
             sTop        : 582,//1
-            sLeft       : 1094,
-            top         : _top,
-            left        : _left,
-            width       : 113,
+            sLeft       : 1106,
+            width       : 98,
             height      : 120,
             dHeight     : 120,
-            dWidth      : 113,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 98
         },
         {
             sTop        : 582,//2
             sLeft       : 991,
-            top         : _top,
-            left        : _left,
-            width       : 103,
+            width       : 114,
             height      : 120,
             dHeight     : 120,
-            dWidth      : 103,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 114
         },
         {
             sTop        : 582,//3
-            sLeft       : 893,
-            top         : _top,
-            left        : _left,
-            width       : 98,
+            sLeft       : 891,
+            width       : 100,
             height      : 120,
             dHeight     : 120,
-            dWidth      : 98,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 100
         },
         {
             sTop        : 582,//4
-            sLeft       : 790,
-            top         : _top,
-            left        : _left,
-            width       : 102,
+            sLeft       : 791,
+            width       : 99,
             height      : 120,
             dHeight     : 120,
-            dWidth      : 102,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 99
         },
         {
             sTop        : 582,//5
-            sLeft       : 693,
-            top         : _top,
-            left        : _left,
-            width       : 98,
+            sLeft       : 690,
+            width       : 101,
             height      : 120,
             dHeight     : 120,
-            dWidth      : 98,
-            useSlice    : true,
-            flipedImage : false
+            dWidth      : 101
         }
     ];
     
@@ -467,7 +414,7 @@ function  Player () {
         }
 
         if (MY_ControllerKey.left) {
-            _flipedImage = true;// Bild umdrehen
+            _useLeftDirection = true;// Bild umdrehen
             _left -= SPEED * STEP;
                         
             _indexRunPlayer += SPEED;
@@ -478,7 +425,7 @@ function  Player () {
         }
         
         if (MY_ControllerKey.right) {
-            _flipedImage = false;// Bild umdrehen
+            _useLeftDirection = false;// Bild umdrehen
             _left += SPEED * STEP;
             
             _indexRunPlayer += SPEED;
@@ -503,13 +450,20 @@ function  Player () {
      * 
      * @type Number
      */
+    var _indexJumpPlayer = 0;
     this.get = function() {
-        _sprite.frames = MY_Game_Resources.get(_sprite.spriteSources[0]);
+        _sprite.images.player = MY_Game_Resources.get(_sprite.spriteSources[0]);
 
         //Get Frame für Kollision
         if (_collision) {
+            //in welche Richtung fliegt er.
+            var _deathDirection = _stateDeathRight;
+            if (_useLeftDirection) {
+                _deathDirection = _stateDeathLeft;
+            }
+            
             //den letzten Frame anzeigen, wenn er runter gefallen ist.
-            if (_indexCollisionsFrames < _stateDeath.length - 1) {
+            if (_indexCollisionsFrames < _deathDirection.length - 1) {
                 _indexCollisionsFrames += 0.2;
                 _top += 0.8;
             }
@@ -517,14 +471,13 @@ function  Player () {
                 _top = 346;// Fehlt sofort auf den Boden
             }
             
-            var index =  Math.floor(_indexCollisionsFrames) % _stateDeath.length;
+            var index =  Math.floor(_indexCollisionsFrames) % _deathDirection.length;
         
-            _stateDeath[index].left = _left;
-            _stateDeath[index].top = _top;
+            _deathDirection[index].left = _left;
+            _deathDirection[index].top = _top;
+            _deathDirection[index].useSlice = true;
 
-            _stateDeath[index].flipedImage = (_flipedImage) ? true : false;
-
-            _sprite.shapes = [_stateDeath[index]];
+            _sprite.shapes.player = [_deathDirection[index]];
             
             return _sprite;
         }
@@ -533,14 +486,15 @@ function  Player () {
             var _standDirection = _stateStandRight;
             
             //ist das Bild nach links gedreht.
-            if (_flipedImage) {
+            if (_useLeftDirection) {
                 _standDirection = _stateStandLeft;
             }
         
             _standDirection[0].top  = _top;
             _standDirection[0].left = _left;
+            _standDirection[0].useSlice = true;
             
-            _sprite.shapes = _standDirection;
+            _sprite.shapes.player = _standDirection;
             
             return _sprite;
         }
@@ -558,11 +512,12 @@ function  Player () {
 
               _top = TOP_DEFAULT;
             }
-
+            
+            //in X-Achse bewegen, wenn er fliegt.
             if (MY_ControllerKey.right || MY_ControllerKey.left) {
                 _x_velocity += 0.25;
                 
-                if (_flipedImage) {
+                if (_useLeftDirection) {
                     _left -= _x_velocity;
                 }
                 else {
@@ -572,29 +527,41 @@ function  Player () {
                 _x_velocity *= 0.9;
             }
         
-            //in welche Richtung läuft er.
-            var _runDirection = _stateRunRight;
-            if (_flipedImage) {
-                _runDirection = _stateRunLeft;
+            //in welche Richtung fliegt er.
+            var _jumpDirection = _shapesJumpRight;
+            if (_useLeftDirection) {
+                _jumpDirection = _shapesJumpLeft;
             }
-
-            var index =  Math.floor(_indexRunPlayer) % _runDirection.length;
             
-            _runDirection[index].top = _top;
-            _runDirection[index].top = TOP_DEFAULT;
+            if (_indexJumpPlayer < _jumpDirection.length - 1) {
+                _indexJumpPlayer += 0.2;
+            }
+            else {
+                _indexJumpPlayer = _jumpDirection.length - 1;
+            }
+            
+            
+            var index =  Math.floor(_indexJumpPlayer) % _jumpDirection.length;
+            
+            _jumpDirection[index].top = _top;
        
         
-            _runDirection[index].left = _left;
+            _jumpDirection[index].left = _left;
+            _jumpDirection[index].useSlice = true;
 
-            _sprite.shapes = [_runDirection[index]];
+            _sprite.shapes.player = [_jumpDirection[index]];
 
             return _sprite;
+        }
+        else {
+            //setze auf 0, damit beim nächsten Sprung die Startposition bestimmt wird.
+            _indexJumpPlayer = 0;
         }
         
                 
         //in welche Richtung läuft er.
         var _runDirection = _stateRunRight;
-        if (_flipedImage) {
+        if (_useLeftDirection) {
             _runDirection = _stateRunLeft;
         }
         
@@ -604,8 +571,9 @@ function  Player () {
        
         
         _runDirection[index].left = _left;
+        _runDirection[index].useSlice = true;
         
-        _sprite.shapes = [_runDirection[index]];
+        _sprite.shapes.player = [_runDirection[index]];
         
         return _sprite;
     };
@@ -671,7 +639,7 @@ function  Player () {
     };
     
     this.isFlippedImage = function() {
-        return _flipedImage;
+        return _useLeftDirection;
     };
     
     this.reset = function() {

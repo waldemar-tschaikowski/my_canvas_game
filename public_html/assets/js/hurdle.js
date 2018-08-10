@@ -12,15 +12,19 @@ function Hurdle () {
         name    : 'hurdle',
         type    : 'image',
         spriteSources     : ['assets/img/scheisse.png'],
-        shapes    : [{
-            left        : _left,
-            top         : _top,
-            width       : _width,
-            height      : _height,
-            useSlice    : false,
-            flipedImage : false
-        }],
-        frames   : null
+        shapes : {
+            scheisse : [{
+                left        : _left,
+                top         : _top,
+                width       : _width,
+                height      : _height,
+                useSlice    : false,
+                flipedImage : false
+            }]
+        },
+        images : {
+            scheisse : null
+        }
     };
     
     function _getResources () {
@@ -40,8 +44,8 @@ function Hurdle () {
     };    
 
     this.get = function() {
-        _sprite.frames = MY_Game_Resources.get(_sprite.spriteSources[0]);
-        _sprite.shapes[0].left = _left;
+        _sprite.images.scheisse = MY_Game_Resources.get(_sprite.spriteSources[0]);
+        _sprite.shapes.scheisse[0].left = _left;
         
         return _sprite;
     };

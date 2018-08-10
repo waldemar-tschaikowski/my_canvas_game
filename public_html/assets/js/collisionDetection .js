@@ -17,50 +17,43 @@ function CollisionDetection () {
      * @returns {Boolean}
      */
     this.checkObjectCollision = function(object1, shape) {
-        //Der Name von der Klasse(Function) benutze ich als Index.
-        var object1_Name = object1.constructor.name;
+        //Der Name der Klasse(Function) benutze ich als Index.
+        var object1_Index = object1.constructor.name;
 //        console.log(collisions[className]);
         //console.log(spriteName);
-        if (collisions[object1_Name] !== undefined) {
+        if (collisions[object1_Index] !== undefined) {
             //Alle Objekte durchlaufen, die eventuell in Kollision stehen können.
-            for (var i = 0; i < collisions[object1_Name].length; i++) {
-                //Opponent
-                var object2 = collisions[object1_Name][i].get();
-                //Kein Shape vorhanden ist.
-                if (object2 === null) {
-                    return false;
-                }
-//                console.log(object2);
-                for (var z = 0; z < object2.shapes.length; z++) {
+            for (var i = 0; i < collisions[object1_Index].length; i++) {
+                
+                for (var o in collisions[object1_Index][i]) {
+                    //
+                    var _shortObj = collisions[object1_Index][i][o];
+                    var object2 = _shortObj.object.get();//Opponent
+                    
+                    //Kein Shape vorhanden ist.
+                    if (object2 === null) {
+                        return false;
+                    }
+                    for (var y = 0; y < _shortObj.images.length; y++) {
+                        for (var z = 0; z < object2.shapes[_shortObj.images[y]].length; z++) {
+                            var shape2 = object2.shapes[_shortObj.images[y]][z];
                             
-                    if (collides(
-                        shape.left,//x1
-                        shape.top, //y1
-                        shape.left + shape.width,// r1
-                        shape.top + shape.height,// b1
-                        object2.shapes[z].left,//x2
-                        object2.shapes[z].top,//y2
-                        object2.shapes[z].left + object2.shapes[z].width,//r2
-                        object2.shapes[z].top + object2.shapes[z].height//b2
-                    )) {
-                        //244--y1--725--r1--416--b1--497.9--x2--350--y2--527.9--r2--370--b2--
-//                        console.log(object1);
-//                        console.log(object2);
-//                        console.log(shape.left,//x1
-//                        shape.top + '--y1--' +
-//                        (shape.left + shape.width) + '--r1--' +// r1
-//                        (shape.top + shape.height) + '--b1--' +// b1
-//                        object2.shapes[z].left + '--x2--' +//x2
-//                        object2.shapes[z].top + '--y2--' +//y2
-//                        (object2.shapes[z].left + object2.shapes[z].width) + '--r2--' +//r2
-//                        (object2.shapes[z].top + object2.shapes[z].height) + '--b2--'
-//                    );
-            
-                        return true;
+                            if (collides(
+                                shape.left,//x1
+                                shape.top, //y1
+                                shape.left + shape.width,// r1
+                                shape.top + shape.height,// b1
+                                shape2.left,//x2
+                                shape2.top,//y2
+                                shape2.left + shape2.width,//r2
+                                shape2.top + shape2.height//b2
+                            )) {
+                                return true;
+                            }
+                        }
                     }
                 }
-            }            
-            //return false;
+            }
         }
         
         return false;

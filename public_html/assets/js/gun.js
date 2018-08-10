@@ -6,17 +6,27 @@ function Gun (player) {
         _top = 350,
         _left = 138,
         STEP = 5,
-//        ALLOWED_DISTANCE_BULLET = 1000,
         _player = player,
         _leftBullet,
-        _topBullet;
+        _topBullet,
+        _leftFire,
+        _topFire;
 
     var _sprite = {
         name : 'bullet',
         type : 'image',
-        spriteSources  : ['assets/img/gamer/bullet.png'],
-        shapes : [],// pattern Flyweight. Mehrere Objekte von gleichem Datentype, aber verschiedene Größen haben.
-        frames : null
+        spriteSources  : [
+            'assets/img/bullet.png',
+            'assets/img/fire.png'
+        ],// pattern Flyweight. Mehrere Objekte von gleichem Datentype, aber verschiedene Größen haben.
+        shapes : {
+            bullet : [],
+            fire : [] 
+        },
+        images : {
+            bullet : null,
+            fire : null
+        }
     };
 
     var audio = {
@@ -38,36 +48,51 @@ function Gun (player) {
      * 
      * pattern Flyweight
      */
-    function _shoot() {
+    function _shoot() {                
+        _sprite.images.bullet = MY_Game_Resources.get(_sprite.spriteSources[0]);
+        _sprite.images.fire = MY_Game_Resources.get(_sprite.spriteSources[1]);
+        
         _leftBullet = _player.getLeft() + _player.getWidth();
         
-        _topBullet = _player.getTop() + 36;
+        _topBullet = _player.getTop() + 24;
         
-        _sprite.frames = MY_Game_Resources.get(_sprite.spriteSources);
-        
-        _sprite.shapes.push({
+        _sprite.shapes.bullet.push({
             top         : _topBullet,
-            left        : (_player.isFlippedImage()) ? _leftBullet - _player.getWidth() - 20 : _leftBullet,
+            left        : (_player.isFlippedImage()) ? _leftBullet - _player.getWidth() - 28 : _leftBullet + 30,
             width       : _width,
             height      : _height,
             useSlice    : false,
             flipedImage : (_player.isFlippedImage()) ? true : false
         });
+
+        _leftFire = _player.getLeft() + _player.getWidth();
+
+        _topFire = _player.getTop();
+
+        _sprite.shapes.fire = [{
+            top         : (_player.isFlippedImage()) ? _topFire + 22 : _topFire + 18,
+            left        : (_player.isFlippedImage()) ? _leftFire - _player.getWidth() - 32 : _leftFire + 20,
+            width       : _width,
+            height      : _height,
+            useSlice    : false,
+            flipedImage : (_player.isFlippedImage()) ? true : false,
+            fired       : true
+        }];        
         
         return _sprite;
     };
     
     function _refreshBullets() {
-        for (var i = 0; i < _sprite.shapes.length; i++) {
-            if (_sprite.shapes[i].left > MY_camera.xView + MY_Canvas.width || _sprite.shapes[i].left <= 0) {
-                _sprite.shapes.splice(i,1);
+        for (var i = 0; i < _sprite.shapes.bullet.length; i++) {
+            if (_sprite.shapes.bullet[i].left > MY_camera.xView + MY_Canvas.width || _sprite.shapes.bullet[i].left <= 0) {
+                _sprite.shapes.bullet.splice(i,1);
             }
             else {
-                if (_sprite.shapes[i].flipedImage) {
-                    _sprite.shapes[i].left -= STEP;
+                if (_sprite.shapes.bullet[i].flipedImage) {
+                    _sprite.shapes.bullet[i].left -= STEP;
                 }
                 else {
-                    _sprite.shapes[i].left += STEP;
+                    _sprite.shapes.bullet[i].left += STEP;
                 }
             }
         }
@@ -75,8 +100,16 @@ function Gun (player) {
 
     this.get = function() {
         _refreshBullets();
+        
+        if (_sprite.shapes.bullet.length > 0) {
+            if (_sprite.shapes.fire !== undefined && _sprite.shapes.fire[0].fired) {
+                _sprite.shapes.fire[0].fired = false;
+            }
+            else {
+                delete(_sprite.images.fire);
+                delete(_sprite.shapes.fire);
+            }            
 
-        if (_sprite.shapes.length > 0) {
             return _sprite;
         }
         

@@ -19,7 +19,7 @@ function GameCanvasRender() {
             if (shape.useSlice) {
                 //den Wert 0 ist für Beckground
                 if (shape.left !== 0) {
-                    shape.left -= MY_camera.xView;
+                   shape.left -= MY_camera.xView;
                 }
                 
                 ctx.drawImage(img, shape.sLeft, shape.sTop, shape.width, shape.height, shape.left, shape.top, (shape.dWidth) ? shape.dWidth : shape.width, (shape.dHeight) ? shape.dHeight : shape.height);
