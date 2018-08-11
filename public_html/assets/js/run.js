@@ -22,23 +22,28 @@
             up : false,
             space : false,
             keyListener : function(event) {
-              var key_state = (event.type === 'keydown') ? true : false;
- 
-              switch(event.keyCode) {
-                case 37:// left key
-                case 65:
-                    MY_ControllerKey.left = key_state;
-                    break;
-                case 38:// up key
-                    MY_ControllerKey.up = key_state;
-                    break;
-                case 68://Die Taste D
-                case 39:// right key
-                    MY_ControllerKey.right = key_state;
-                    break;
-                case 32://Leertaste
-                    MY_ControllerKey.space = key_state;
-              }
+                var key_state = (event.type === 'keydown');
+
+                switch(event.keyCode) {
+                    case 37:// left key
+                    case 65:
+                       MY_ControllerKey.left = key_state;
+                       break;
+                    case 38:// up key
+                       MY_ControllerKey.up = key_state;
+                       break;
+                    case 68://Die Taste D
+                    case 39:// right key
+                       MY_ControllerKey.right = key_state;
+                       break;
+                    case 32://Leertaste
+                       MY_ControllerKey.space = key_state;
+                       break;
+                    case 83:
+                    case 40:
+                       MY_ControllerKey.sitting = key_state;
+                       break;
+                }
             }
         };
         
@@ -54,7 +59,7 @@
         
         window.MY_CTX_Canvas = gameCanvasRender.getCanvasCTX();
         
-        background = new Background();        
+        background = new Background();
                 
         window.MY_camera = new Camera();
         
@@ -80,6 +85,7 @@
         MY_Game_Resources.load(enemy.getResources());
         MY_Game_Resources.load(score.getResources());
 
+        //Alle Objekte auf dem Bildschirm aufzeichen.
         drawRenderObjects.push(background);
         drawRenderObjects.push(player);
         drawRenderObjects.push(gun);
@@ -88,15 +94,23 @@
         drawRenderObjects.push(score);
                 
         preload();// Alle Resources in Cache ablegen
-        
+
         collisionDetection = new CollisionDetection();
-        
+
+        /**
+         * Das Objekt Player hat zwei Feinde: hurdle und enemy.
+         * Ein Objekt(z.b Player) kann aus mehrere Images(Teilen) bestehen. z.B In diesem Fall- "hurdle" besteht nur aus einem Teil -> images:[hurdle]
+         * Aber es kann sein, dass Images mehrere copy von sich selbst haben. Die unterscheiden sich nur in Positionnierung ung Größen.
+         * Ich nenne diese Copy-Images als "Shapes" - Formen;
+         *
+         * Hier kann man festlegen, weilche Shapes sind für das Objekt gefährlich.
+         */
         collisionDetection.addCollisionsObjects(player,[
             {
                 hurdle : {
                     object : hurdle,
                     images : [
-                        'scheisse'
+                        'hurdle'
                     ]
                 }
             },
@@ -247,8 +261,8 @@
                         for(var z = 0; z < _sprite.shapes[img].length; z++) {
                             if (collisionDetection.checkObjectCollision(drawRenderObjects[i], _sprite.shapes[img][z])) {
                             
-                                drawRenderObjects[i].onCollision(function(gameOver) {
-                                    if (gameOver) {
+                                drawRenderObjects[i].onCollision(function(state) {
+                                    if (state === 666) {
                                         gameStatus.gameOver = true;
                                     }
                                 }, gameStatus);
@@ -299,12 +313,19 @@
                 player.move();
             }
 
-            if (!MY_ControllerKey.right && !MY_ControllerKey.left && !MY_ControllerKey.space) {
+            if (!MY_ControllerKey.right && !MY_ControllerKey.left && !MY_ControllerKey.space && !MY_ControllerKey.sitting) {
                 player.stop();
             }
 
             if (MY_ControllerKey.space) {
                 player.jump();
+            }
+
+            if (MY_ControllerKey.sitting) {
+                player.sit(true);
+            }
+            else {
+                player.sit(false);
             }
         }
         

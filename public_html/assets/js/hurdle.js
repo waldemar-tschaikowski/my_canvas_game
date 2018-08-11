@@ -1,4 +1,6 @@
 function Hurdle () {
+    'use strict';
+
     var _width = 100,
         _height = 60,
         TOP_DEFAULT = 370,
@@ -9,11 +11,11 @@ function Hurdle () {
         _direction = -1;
     
     var _sprite = {
-        name    : 'hurdle',
-        type    : 'image',
-        spriteSources     : ['assets/img/scheisse.png'],
+        name            : 'hurdle',
+        type            : 'image',
+        spriteSources   : ['assets/img/hurdle.png'],
         shapes : {
-            scheisse : [{
+            hurdle : [{
                 left        : _left,
                 top         : _top,
                 width       : _width,
@@ -23,7 +25,7 @@ function Hurdle () {
             }]
         },
         images : {
-            scheisse : null
+            hurdle : null
         }
     };
     
@@ -44,8 +46,8 @@ function Hurdle () {
     };    
 
     this.get = function() {
-        _sprite.images.scheisse = MY_Game_Resources.get(_sprite.spriteSources[0]);
-        _sprite.shapes.scheisse[0].left = _left;
+        _sprite.images.hurdle = MY_Game_Resources.get(_sprite.spriteSources[0]);
+        _sprite.shapes.hurdle[0].left = _left;
         
         return _sprite;
     };

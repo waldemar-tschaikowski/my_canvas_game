@@ -1,4 +1,6 @@
-function CollisionDetection () {
+function CollisionDetection() {
+    'use strict';
+
     /**
      * --object to check-- //-> geprüftes Objekt 
      * collision Objecte   //-> array von Objekten, die eventuell in konflikt mit geprüftem Objekt stehen können.
