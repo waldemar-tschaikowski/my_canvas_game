@@ -1,6 +1,8 @@
 function Hurdle () {
     'use strict';
 
+    //------privatbereich-------
+
     var _width = 100,
         _height = 60,
         TOP_DEFAULT = 370,
@@ -40,7 +42,9 @@ function Hurdle () {
         
         _left += STEP * _direction;
     }
-    
+
+    //------öffentlichen Bereich-------
+
     this.getResources = function() {
         return _getResources();
     };    

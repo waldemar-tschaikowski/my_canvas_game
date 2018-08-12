@@ -1,4 +1,7 @@
 function Enemy() {
+    'use strict';
+
+    //------privatbereich-------
     var _width = 201,
         _height = 172,
         TOP_DEFAULT = 244,
@@ -37,7 +40,8 @@ function Enemy() {
                 left        : _left,
                 flipedImage : false,
                 useSlice    : false
-            }]
+            }],
+            explosion : []
         },
         images : {
             enemy: null
@@ -64,7 +68,9 @@ function Enemy() {
             _flipedImage = false;// Bild umdrehen
         }
     }
-    
+
+    //------öffentlichen Bereich-------
+
     this.getResources = function() {
         return _getResources();
     };

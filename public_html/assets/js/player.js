@@ -1,20 +1,21 @@
 function  Player () {
     'use strict';
 
-    //------privaten Bereich-------
+    //------privatbereich-------
 
     var _playerStanding = true,
         _width = 71,
         _height = 102,
         TOP_DEFAULT = 314,
-        _top = TOP_DEFAULT,
+        GROUND_POSITION = 432,// Positionierung des Boden
+        _top = TOP_DEFAULT, // _top wird benutzt, um festzustellen, wo gerade sich der Player befindet.
         LEFT_DEFAULT = 300,
         _left = 0,
         _indexRunPlayer = 0,
         _indexCollisionsCounter = 0,
         _indexSittingCounter = 0,
         _indexJumpPlayer = 0,
-        _jumping  = false,//ob der Player sich in dem Sprungzustand befindet. In der Luft
+        _jumping  = false,
         _sitting = false,
         _collision = false,
         Y_VELOCITY_DEFAULT = -30,
@@ -25,12 +26,6 @@ function  Player () {
         SPEED = 0.2,
         _useLeftDirection = false;
 
-//    var GameStateEnum = {
-//        Ready: 0,
-//        Playing: 1,
-//        GameOver: 2
-//    };
-//    _animation sprite_sheet frames
     var _sprite =  {
         name : 'player',
         type : 'image',
@@ -48,92 +43,94 @@ function  Player () {
             sTop        : 345,//1
             sLeft       : 66,
             width       : 94,
-            height      : 112
+            height      : 118
         },
         {
             sTop        : 345,//2
             sLeft       : 162,
             width       : 98,
-            height      : 112
+            height      : 118
         },
         {
             sTop        : 345,//3
             sLeft       : 256,
             width       : 93,
-            height      : 112
+            height      : 118
         },
         {
             sTop        : 345,//4
             sLeft       : 349,
             width       : 92,
-            height      : 112
+            height      : 118
         },
         {
             sTop        : 345,//5
             sLeft       : 444,
             width       : 96,
-            height      : 112
+            height      : 118
         },
         {
             sTop        : 345,//6
             sLeft       : 537,
             width       : 92,
-            height      : 112
+            height      : 118
         }
     ];
     
-     var _stateRunLeft = [
+    var _stateRunLeft = [
         {
             sTop        : 345,//1
             sLeft       : 1110,
             width       : 97,
-            height      : 112
+            height      : 118
         },
         {
             sTop        : 345,//2
             sLeft       : 1012,
             width       : 98,
-            height      : 112
+            height      : 118
         },
         {
             sTop        : 345,//3
             sLeft       : 919,
             width       : 92,
-            height      : 112
+            height      : 118
         },
         {
             sTop        : 345,//4
             sLeft       : 826,
             width       : 92,
-            height      : 112
+            height      : 118
         },
         {
             sTop        : 345,//5
             sLeft       : 731,
             width       : 95,
-            height      : 112
+            height      : 118
         },
         {
             sTop        : 345,//6
             sLeft       : 639,
             width       : 92,
-            height      : 112
+            height      : 118
         }
     ];
     
-     var _stateStandRight = [
+    var _stateStandingRight = [
         {
             sTop        : 224,//1
             sLeft       : 75,
             width       : 86,
+            top         :314,
             height      : 99
         }
     ];
     
-    var _stateStandLeft = [
+    var _stateStandingLeft = [
         {
             sTop        : 224,//1
             sLeft       : 1110,
+            top         : 314,
             width       : 97,
             height      : 119
         }
@@ -150,25 +147,25 @@ function  Player () {
             sTop        : 715,//2
             sLeft       : 150,
             width       : 93,
-            height      : 103
+            height      : 90
         },
         {
-            sTop        : 715,//3
+            sTop        : 732,//3
             sLeft       : 243,
             width       : 114,
-            height      : 103
+            height      : 80
         },
         {
-            sTop        : 715,//4
+            sTop        : 732,//4
             sLeft       : 357,
             width       : 108,
-            height      : 103
+            height      : 80
         },
         {
-            sTop        : 715,//5
+            sTop        : 732,//5
             sLeft       : 465,
             width       : 106,
-            height      : 103
+            height      : 80
         },
         {
             sTop        : 834,//6
@@ -189,10 +186,10 @@ function  Player () {
             height      : 80
         },
         {
-            sTop        : 834,//9
+            sTop        : 868,//9
             sLeft       : 437,
             width       : 131,
-            height      : 80
+            height      : 50
         }
     ];
     
@@ -207,25 +204,25 @@ function  Player () {
             sTop        : 715,//2
             sLeft       : 1026,
             width       : 93,
-            height      : 103
+            height      : 90
         },
         {
-            sTop        : 715,//3
+            sTop        : 735,//3
             sLeft       : 915,
             width       : 110,
-            height      : 103
+            height      : 80
         },
         {
-            sTop        : 715,//4
+            sTop        : 735,//4
             sLeft       : 806,
             width       : 108,
-            height      : 103
+            height      : 80
         },
         {
-            sTop        : 715,//5
+            sTop        : 735,//5
             sLeft       : 694,
             width       : 112,
-            height      : 103
+            height      : 80
         },
         {
             sTop        : 834,//6
@@ -246,10 +243,10 @@ function  Player () {
             height      : 80
         },
         {
-            sTop        : 834,//9
+            sTop        : 868,//9
             sLeft       : 699,
             width       : 131,
-            height      : 80
+            height      : 50
         }
     ];
     
@@ -324,28 +321,28 @@ function  Player () {
         {
             sTop        : 463,//1
             sLeft       : 77,
-            top         : 340,
+            top         : 314,
             width       : 86,
-            height      : 108
+            height      : 99
         },
         {
             sTop        : 474,//2
             sLeft       : 188,
-            top         : 342,
+            top         : 330,
             width       : 85,
-            height      : 98
+            height      : 91
         },
         {
             sTop        : 490,//3
             sLeft       : 288,
-            top         : 345,
+            top         : 340,
             width       : 83,
             height      : 74
         },
         {
             sTop        : 495,//1
             sLeft       : 383,
-            top         : 350,
+            top         : 348,
             width       : 83,
             height      : 70
         }
@@ -355,28 +352,28 @@ function  Player () {
         {
             sTop        : 463,//1
             sLeft       : 1111,
-            top         : 340,
-            width       : 83,
+            top         : 314,
+            width       : 86,
             height      : 99
         },
         {
             sTop        : 474,//2
             sLeft       : 999,
-            top         : 343,
+            top         : 330,
             width       : 85,
-            height      : 98
+            height      : 91
         },
         {
             sTop        : 490,//3
             sLeft       : 899,
-            top         : 345,
+            top         : 340,
             width       : 83,
             height      : 74
         },
         {
             sTop        : 495,//1
             sLeft       : 804,
-            top         : 350,
+            top         : 348,
             width       : 83,
             height      : 70
         }
@@ -390,7 +387,7 @@ function  Player () {
         if (_sitting) {
             return;
         }
-        
+
         if (_playerStanding) {
             _playerStanding = false;
         }
@@ -401,23 +398,14 @@ function  Player () {
                         
             _indexRunPlayer += SPEED;
         }
-        
-        if (MY_ControllerKey.up) {
-            //top -= SPEED * STEP;
-        }
-        
+
         if (MY_ControllerKey.right) {
             _useLeftDirection = false;// Bild umdrehen
             _left += SPEED * STEP;
             
             _indexRunPlayer += SPEED;
-            //console.log(left);
         }
-        
-        if (MY_ControllerKey.down) {
-            //top += SPEED * STEP;
-        }
-        
+
         if (_left + _width >= MY_MapWidth) {
             _left = MY_MapWidth - _width;
         }
@@ -439,14 +427,13 @@ function  Player () {
             //nur den letzten Frame anzeigen, wenn er runter gefallen ist.
             if (_indexCollisionsCounter < _deathDirection.length - 1) {
                 _indexCollisionsCounter += 0.2;
-                _top += 0.8;
             }
-            else if (_top < 346) {
-                _top = 346;//  sofort auf den Boden
-            }
-            
+
             var index =  Math.floor(_indexCollisionsCounter) % _deathDirection.length;
-        
+
+            _top = GROUND_POSITION - _deathDirection[index].height;
+
+
             _deathDirection[index].left = _left;
             _deathDirection[index].top = _top;
             _deathDirection[index].useSlice = true;
@@ -459,18 +446,18 @@ function  Player () {
         if (_playerStanding && !_jumping && !_sitting) {
             _indexRunPlayer = 0;
 
-            var _standDirection = _stateStandRight;
+            var _standingDirection = _stateStandingRight;
             
             //ist das Bild nach links gedreht.
             if (_useLeftDirection) {
-                _standDirection = _stateStandLeft;
+                _standingDirection = _stateStandingLeft;
             }
-        
-            _standDirection[0].top  = _top;
-            _standDirection[0].left = _left;
-            _standDirection[0].useSlice = true;
+
+            _top = TOP_DEFAULT;
+            _standingDirection[0].left = _left;
+            _standingDirection[0].useSlice = true;
             
-            _sprite.shapes.player = _standDirection;
+            _sprite.shapes.player = _standingDirection;
             
             return _sprite;
         }
@@ -488,15 +475,14 @@ function  Player () {
             var index =  Math.floor(_indexSittingCounter) % _sittingDirection.length;
 
             _sittingDirection[index].left = _left;
+
+            _top = _sittingDirection[index].top;
+
             _sittingDirection[index].useSlice = true;
 
             _sprite.shapes.player = [_sittingDirection[index]];
 
             return _sprite;
-        }
-        else {
-            //reset
-            _indexSittingCounter = 0;
         }
         
         if (_jumping) {
@@ -506,14 +492,7 @@ function  Player () {
 
             _y_velocity *= 0.9;
             
-            if (_top > TOP_DEFAULT) {
-
-              _jumping = false;
-
-              _top = TOP_DEFAULT;
-            }
-            
-            //in X-Achse bewegen, wenn er fliegt.
+            //in X-Achse bewegen, wenn diese Tasten gedrückt wurden.
             if (MY_ControllerKey.right || MY_ControllerKey.left) {
                 _x_velocity += 0.25;
                 
@@ -542,7 +521,13 @@ function  Player () {
             
             
             var index =  Math.floor(_indexJumpPlayer) % _jumpDirection.length;
-            
+
+
+            if (_top > GROUND_POSITION - _jumpDirection[index].height) {
+                _jumping = false;
+
+                _top = GROUND_POSITION - _jumpDirection[index].height;
+            }
             _jumpDirection[index].top = _top;
        
         
@@ -557,17 +542,18 @@ function  Player () {
             //setze auf 0, damit beim nächsten Sprung die Startposition bestimmt wird.
             _indexJumpPlayer = 0;
         }
-        
-                
-        //in welche Richtung läuft er.
+
+        //Der Player rennt.
         var _runDirection = _stateRunRight;
         if (_useLeftDirection) {
             _runDirection = _stateRunLeft;
         }
         
         var index =  Math.floor(_indexRunPlayer) % _runDirection.length;
-        
-        _runDirection[index].top = TOP_DEFAULT;
+
+        _top = GROUND_POSITION - _runDirection[index].height;
+
+        _runDirection[index].top = _top;
        
         
         _runDirection[index].left = _left;
@@ -580,10 +566,9 @@ function  Player () {
 
     function _jump() {
         if (_jumping === false) {
+            _jumping  = true;// er ist gesprungen.
             _y_velocity = Y_VELOCITY_DEFAULT;
             _x_velocity = X_VELOCITY_DEFAULT;
-            
-            _jumping  = true;// er ist gesprungen.
         }
     }
     

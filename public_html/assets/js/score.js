@@ -1,6 +1,8 @@
 function Score(enemy) {
     'use strict';
-    
+
+    //------privatbereich-------
+
     var _enemy = enemy,
         _left = 454;
 

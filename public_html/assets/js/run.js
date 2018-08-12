@@ -49,7 +49,7 @@
         
         //die gesamte Breite des Spielgames.
         window.MY_MapWidth = 4000;
-        window.MY_MapHeight = 640;
+        window.MY_MapHeight = 500;
         
         window.MY_Game_Resources = new Resources();
         

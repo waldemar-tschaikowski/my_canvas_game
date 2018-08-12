@@ -1,6 +1,8 @@
-function Gun (player) {
+function Gun(player) {
     'use strict';
-    
+
+    //------privatbereich-------
+
     var _width = 30,
         _height = 20,
         _top = 350,
@@ -12,13 +14,14 @@ function Gun (player) {
         _leftFire,
         _topFire;
 
+    // pattern Flyweight. Mehrere Objekte von gleichem Datentype, aber verschiedene Größen haben.
     var _sprite = {
         name : 'bullet',
         type : 'image',
         spriteSources  : [
             'assets/img/bullet.png',
             'assets/img/fire.png'
-        ],// pattern Flyweight. Mehrere Objekte von gleichem Datentype, aber verschiedene Größen haben.
+        ],
         shapes : {
             bullet : [],
             fire : [] 
@@ -48,7 +51,7 @@ function Gun (player) {
      * 
      * pattern Flyweight
      */
-    function _shoot() {                
+    function _shoot() {
         _sprite.images.bullet = MY_Game_Resources.get(_sprite.spriteSources[0]);
         _sprite.images.fire = MY_Game_Resources.get(_sprite.spriteSources[1]);
         
@@ -62,7 +65,7 @@ function Gun (player) {
             width       : _width,
             height      : _height,
             useSlice    : false,
-            flipedImage : (_player.isFlippedImage()) ? true : false
+            flipedImage : _player.isFlippedImage()
         });
 
         _leftFire = _player.getLeft() + _player.getWidth();
@@ -75,7 +78,7 @@ function Gun (player) {
             width       : _width,
             height      : _height,
             useSlice    : false,
-            flipedImage : (_player.isFlippedImage()) ? true : false,
+            flipedImage : _player.isFlippedImage(),
             fired       : true
         }];        
         
@@ -98,6 +101,8 @@ function Gun (player) {
         }
     }
 
+    //------öffentlichen Bereich-------
+
     this.get = function() {
         _refreshBullets();
         
@@ -117,7 +122,7 @@ function Gun (player) {
     };
   
     this.hasBullets = function() {
-        return _sprite.shapes > 0 ? true : false;
+        return _sprite.shapes > 0;
     };
     
     this.getResources = function () {

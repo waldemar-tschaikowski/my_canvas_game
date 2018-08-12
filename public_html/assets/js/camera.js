@@ -34,7 +34,7 @@ function Camera() {
     this.followed = null;
 
     // rectangle that represents the viewport
-    this.viewportRect = new Rectangle(this.xView, this.yView, this.wView, this.hView);				
+    this.viewportRect = new Rectangle(this.xView, this.yView, this.wView, this.hView);
 
     // rectangle that represents the world's boundary (room's boundary)
     this.worldRect = new Rectangle(0, 0, MY_MapWidth, MY_MapHeight);
@@ -149,35 +149,6 @@ function Camera() {
     };
     
     this.reset = function() {
-       
-        //this.xView = -(MY_Canvas.width/2);
-
-        // distance from followed object to border before camera starts move
-//        this.xDeadZone = 0; // min distance to horizontal borders
-//        this.yDeadZone = 0; // min distance to vertical borders
-
-        // viewport dimensions
-
-//        this.left = 0;
-//        this.top = 0;
-        
-//        this.wView = MY_Canvas.width;
-//        this.hView = MY_Canvas.height;	
-        
-//        this.viewportRect.left = this.xView;
-//        this.viewportRect.top = 0;
-//        this.viewportRect.width = this.wView;
-//        this.viewportRect.height = this.hView;
-//        this.viewportRect.right = this.left + this.wView;
-//        this.viewportRect.bottom = this.top + this.hView;
-
-
-//        this.worldRect.left = 0;
-//        this.worldRect.top = 0;
-//        this.worldRect.width = _background.getMapWidth();
-//        this.worldRect.height = _background.getMapHeight();
-//        this.worldRect.right = this.left + _background.getMapWidth();
-//        this.worldRect.bottom = this.top + _background.getMapHeight();
 
     };
 }

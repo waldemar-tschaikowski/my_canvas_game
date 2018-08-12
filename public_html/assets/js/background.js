@@ -2,11 +2,11 @@ function Background () {
     'use strict';
     
     var _width = 2560,
-        _height = 640,
-        _top = 120,
+        _height = 500,
+        _top = 0,
         _left = 0,
         _mapWidth = 4000,//2560
-        _mapHeight = 640;
+        _mapHeight = 500;
 
     var _sprite = {
         name : 'background',

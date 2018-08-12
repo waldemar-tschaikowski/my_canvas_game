@@ -26,7 +26,7 @@ function GameCanvasRender() {
                 return;
             }
             ctx.drawImage(img, shape.left - MY_camera.xView, shape.top);
-        }        
+        }
     }
 
     //Das Bild umdrehen
