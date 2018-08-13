@@ -1,19 +1,20 @@
 (function () {
     'use strict';
   
-    var player,
-        background,
-        gun,
-        hurdle,
-        gameCanvasRender,
-        drawRenderObjects = [],
-        enemy,
-        collisionDetection,
-        gameStatus = {
+    var _player,
+        _background,
+        _gun,
+        _hurdle,
+        _gameCanvasRender,
+        _drawRenderObjects = [],
+        _enemy,
+        _bullet,
+        _collisionDetection,
+        _gameStatus = {
             play : false,
             gameOver : false
         },
-        score;
+        _score;
     
     var init = function () {
         window.MY_ControllerKey = {
@@ -53,62 +54,66 @@
         
         window.MY_Game_Resources = new Resources();
         
-        gameCanvasRender = new GameCanvasRender();
+        _gameCanvasRender = new GameCanvasRender();
         
-        window.MY_Canvas = gameCanvasRender.getCanvas();
+        window.MY_Canvas = _gameCanvasRender.getCanvas();
         
-        window.MY_CTX_Canvas = gameCanvasRender.getCanvasCTX();
+        window.MY_CTX_Canvas = _gameCanvasRender.getCanvasCTX();
         
-        background = new Background();
+        _background = new Background();
                 
         window.MY_camera = new Camera();
         
-        player = new Player();
+        _bullet = new Bullet();
+        
+        _gun = new Gun(_bullet);        
+                
+        _player = new Player(_gun);
 
         /**
          * Der Player bleibt in der Mitte.
          */
-        MY_camera.follow(player, MY_Canvas.width/2, MY_Canvas.height);
+        MY_camera.follow(_player, MY_Canvas.width/2, MY_Canvas.height);
         
-        gun = new Gun(player);
+        _hurdle = new Hurdle();
         
-        hurdle = new Hurdle();
+        _enemy = new Enemy(_bullet);
         
-        enemy = new Enemy();
-        
-        score = new Score(enemy);
+        _score = new Score(_enemy);
 
-        MY_Game_Resources.load(player.getResources());
-        MY_Game_Resources.load(background.getResources());
-        MY_Game_Resources.load(gun.getResources());
-        MY_Game_Resources.load(hurdle.getResources());
-        MY_Game_Resources.load(enemy.getResources());
-        MY_Game_Resources.load(score.getResources());
+        MY_Game_Resources.load(_player.getResources());
+        MY_Game_Resources.load(_background.getResources());
+        MY_Game_Resources.load(_gun.getResources());
+        MY_Game_Resources.load(_bullet.getResources());
+        MY_Game_Resources.load(_hurdle.getResources());
+        MY_Game_Resources.load(_enemy.getResources());
+        MY_Game_Resources.load(_score.getResources());
 
         //Alle Objekte auf dem Bildschirm aufzeichen.
-        drawRenderObjects.push(background);
-        drawRenderObjects.push(player);
-        drawRenderObjects.push(gun);
-        drawRenderObjects.push(hurdle);
-        drawRenderObjects.push(enemy);
-        drawRenderObjects.push(score);
+        _drawRenderObjects.push(_background);
+        _drawRenderObjects.push(_player);
+        _drawRenderObjects.push(_bullet);
+        _drawRenderObjects.push(_gun);
+        _drawRenderObjects.push(_hurdle);
+        _drawRenderObjects.push(_enemy);
+        _drawRenderObjects.push(_score);
                 
         preload();// Alle Resources in Cache ablegen
 
-        collisionDetection = new CollisionDetection();
+        _collisionDetection = new CollisionDetection();
 
         /**
          * Das Objekt Player hat zwei Feinde: hurdle und enemy.
          * Ein Objekt(z.b Player) kann aus mehrere Images(Teilen) bestehen. z.B In diesem Fall- "hurdle" besteht nur aus einem Teil -> images:[hurdle]
          * Aber es kann sein, dass Images mehrere copy von sich selbst haben. Die unterscheiden sich nur in Positionnierung ung Größen.
-         * Ich nenne diese Copy-Images als "Shapes" - Formen;
+         * Ich nenne diese Copy-Images als "Shapes" - Formen; Objekt -> Images -> Shape
          *
-         * Hier kann man festlegen, weilche Shapes sind für das Objekt gefährlich.
+         * Hier kann man festlegen, weilche Images sind für das Objekt gefährlich.
          */
-        collisionDetection.addCollisionsObjects(player,[
+        _collisionDetection.addCollisionsObjects(_player,[
             {
                 hurdle : {
-                    object : hurdle,
+                    object : _hurdle,
                     images : [
                         'hurdle'
                     ]
@@ -116,7 +121,7 @@
             },
             {
                 enemy : {
-                    object : enemy,
+                    object : _enemy,
                     images : [
                         'enemy'
                     ]
@@ -124,10 +129,10 @@
             }
         ]);
     
-        collisionDetection.addCollisionsObjects(enemy,[
+        _collisionDetection.addCollisionsObjects(_enemy,[
             {
-                gun : {
-                    object : gun,
+                bullet : {
+                    object : _bullet,
                     images : [
                         'bullet'
                     ]
@@ -160,8 +165,8 @@
                 break;
         }
         
-        gameCanvasRender.clear();  
-        gameCanvasRender.drawText('Loading' + point, '20px arial',  'black', 440, 300);
+        _gameCanvasRender.clear();  
+        _gameCanvasRender.drawText('Loading' + point, '20px arial',  'black', 440, 300);
 
         if (MY_Game_Resources.isReady()) {
             clearTimeout(loopId);
@@ -171,11 +176,11 @@
             //hurdle.move();
             MY_camera.move();
             
-            var bg = background.get();
-            var pl = player.get();
+            var bg = _background.get();
+            var pl = _player.get();
 
-            gameCanvasRender.draw(bg.images.background, bg.shapes.background[0]);            
-            gameCanvasRender.draw(pl.images.player, pl.shapes.player[0]);
+            _gameCanvasRender.draw(bg.images.background, bg.shapes.background[0]);            
+            _gameCanvasRender.draw(pl.images.player, pl.shapes.player[0]);
             
             return;
         } 
@@ -207,7 +212,7 @@
         start.addEventListener('click',function() {
             this.blur();//Damit die Leertaste, dieses Event nicht auslöst.
             
-            gameStatus.play = true;
+            _gameStatus.play = true;
 
             if (loopIdGameStage !== undefined) {
                 reset();// Das Spiel kann man nach dem Game Over wieder starten
@@ -223,14 +228,14 @@
     
     var reset = function() {
         //Beim ersten Aufruf startet auch diese Funktion.
-        for (var i = 0; i < drawRenderObjects.length; i++) {
-            drawRenderObjects[i].reset();
+        for (var i = 0; i < _drawRenderObjects.length; i++) {
+            _drawRenderObjects[i].reset();
         }
 
         //MY_camera.reset();
         window.cancelAnimationFrame(loopIdGameStage);
 
-        gameStatus.gameOver = false;
+        _gameStatus.gameOver = false;
     };
 
     var loopIdGameStage;
@@ -238,18 +243,18 @@
     //Alle Objekte durchlaufen und anzeigen.
     var drawGameStage = function() {
         //Wenn die Pause gedrückt wurde.
-        if (!gameStatus.play) {
+        if (!_gameStatus.play) {
             return false;
         }
 
         //Alle Objekte aktualisieren.
         handleEventsKeyAction();
         
-        gameCanvasRender.clear();
+        _gameCanvasRender.clear();
 
         try {
-            for (var i = 0; i < drawRenderObjects.length; i++) {
-                _sprite = drawRenderObjects[i].get();
+            for (var i = 0; i < _drawRenderObjects.length; i++) {
+                _sprite = _drawRenderObjects[i].get();
                 
                 // wenn ein Objekt nicht angezeigt werden soll.
                 if (_sprite === null) {
@@ -259,15 +264,15 @@
                 for (var img in _sprite.images) {
                     if (_sprite.shapes.hasOwnProperty(img)) {
                         for(var z = 0; z < _sprite.shapes[img].length; z++) {
-                            if (collisionDetection.checkObjectCollision(drawRenderObjects[i], _sprite.shapes[img][z])) {
+                            if (_collisionDetection.checkObjectCollision(_drawRenderObjects[i], _sprite.shapes[img][z])) {
                             
-                                drawRenderObjects[i].onCollision(function(state) {
+                                _drawRenderObjects[i].onCollision(function(state) {
                                     if (state === 666) {
-                                        gameStatus.gameOver = true;
+                                        _gameStatus.gameOver = true;
                                     }
-                                }, gameStatus);
+                                }, _gameStatus);
                             }
-                            gameCanvasRender.draw(_sprite.images[img], _sprite.shapes[img][z]);
+                            _gameCanvasRender.draw(_sprite.images[img], _sprite.shapes[img][z]);
                         }
                     }
                     else {
@@ -291,45 +296,45 @@
     };
     
     var setPauseGame = function () {
-        gameStatus.play = false;
+        _gameStatus.play = false;
     };
     
     var shootAction = function () {
-        if (gameStatus.gameOver) {
+        if (_gameStatus.gameOver) {
             return;
         }
         
-        if (gameStatus.play) {
-            gun.shoot();
+        if (_gameStatus.play) {
+            _player.shoot();
         }
     };
 
     var handleEventsKeyAction = function() {
-        hurdle.move();
-        enemy.move();
+        _hurdle.move();
+        _enemy.move();
         
-        if (!gameStatus.gameOver) {
+        if (!_gameStatus.gameOver) {
             if (MY_ControllerKey.left || MY_ControllerKey.right) {
-                player.move();
+                _player.move();
             }
 
             if (!MY_ControllerKey.right && !MY_ControllerKey.left && !MY_ControllerKey.space && !MY_ControllerKey.sitting) {
-                player.stop();
+                _player.stop();
             }
 
             if (MY_ControllerKey.space) {
-                player.jump();
+                _player.jump();
             }
 
             if (MY_ControllerKey.sitting) {
-                player.sit(true);
+                _player.sit(true);
             }
             else {
-                player.sit(false);
+                _player.sit(false);
             }
         }
         
-        if (!player.isPlayerStanding()) {
+        if (!_player.isPlayerStanding()) {
             MY_camera.move();
         }
         

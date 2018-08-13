@@ -1,4 +1,4 @@
-function Enemy() {
+function Enemy(bullet) {
     'use strict';
 
     //------privatbereich-------
@@ -13,7 +13,8 @@ function Enemy() {
         SPEED = 0.2,
         _direction = -1,
         _scoreDead = 0,
-        _flipedImage = false;
+        _flipedImage = false,
+        _bullet = bullet;
 
     var _sprite =  {
         name : 'enemies',
@@ -48,10 +49,10 @@ function Enemy() {
         }
     };
     
-    function _getResources () {
+    function _getResources() {
         return _sprite;
     }
-    
+    var that = this;
     function _move() {
         _indexPos += SPEED;
         
@@ -66,6 +67,11 @@ function Enemy() {
         }
         else {
             _flipedImage = false;// Bild umdrehen
+        }
+        
+        var r = Math.floor(Math.random() * 10);
+        if (r === 5) {
+            _bullet.addBullet(that, 'enemy');
         }
     }
 
@@ -104,21 +110,21 @@ function Enemy() {
         _scoreDead += 1;
     };
     
-//    this.getLeft = function() {
-//        return _left;
-//    };
-//    
-//    this.getTop = function() {
-//        return _top;
-//    };
-//    
-//    this.getWidth = function() {
-//        return _width;
-//    };
-//    
-//    this.getHeight = function() {
-//        return _height;
-//    };
+    this.getLeft = function() {
+        return _left;
+    };
+    
+    this.getTop = function() {
+        return _top;
+    };
+    
+    this.getOffsetRight = function() {
+        return _left + _width;
+    };
+    
+    this.isFlippedImage = function() {
+        return _flipedImage;
+    };
 
     this.getScore = function() {
         return _scoreDead;

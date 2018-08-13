@@ -1,4 +1,4 @@
-function  Player () {
+function  Player(gun) {
     'use strict';
 
     //------privatbereich-------
@@ -24,7 +24,8 @@ function  Player () {
         _x_velocity = X_VELOCITY_DEFAULT,
         STEP = 20,
         SPEED = 0.2,
-        _useLeftDirection = false;
+        _useLeftDirection = false,
+        _gun = gun;
 
     var _sprite =  {
         name : 'player',
@@ -595,7 +596,7 @@ function  Player () {
 
     this.sit = function(state) {
         _sit(state);
-    }
+    };
     
     this.getResources = function() {
         return _getResources();
@@ -635,6 +636,26 @@ function  Player () {
         return _useLeftDirection;
     };
     
+    this.isSitting = function() {
+        return _sitting;
+    };
+    
+    this.isRunning = function() {
+        return MY_ControllerKey.right;
+    };
+    
+//    this.getOffsetTop = function() {
+//        return _top;
+//    };
+//    
+//    this.getOffsetLeft = function() {
+//        return _left;
+//    };
+    
+    this.getOffsetRight = function() {
+        return _left + _width;
+    };
+    
     this.reset = function() {
         _top = TOP_DEFAULT;
         _left = LEFT_DEFAULT;
@@ -645,6 +666,10 @@ function  Player () {
         _y_velocity = Y_VELOCITY_DEFAULT;
         _x_velocity = X_VELOCITY_DEFAULT;
         _playerStanding = true;
+    };
+    
+    this.shoot = function() {
+        _gun.shoot(this);
     };
 };
 

@@ -26,7 +26,7 @@ function CollisionDetection() {
         if (collisions[object1_Index] !== undefined) {
             //Alle Objekte durchlaufen, die eventuell in Kollision stehen können.
             for (var i = 0; i < collisions[object1_Index].length; i++) {
-                
+                //alle Properties durchgehen
                 for (var o in collisions[object1_Index][i]) {
                     //
                     var _shortObj = collisions[object1_Index][i][o];
