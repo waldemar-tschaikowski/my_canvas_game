@@ -7,7 +7,7 @@ function Bullet() {
         _height = 20,
         STEP = 5;
 
-    // pattern Flyweight. Mehrere Objekte von gleichem Datentype, aber verschiedene Größen haben.
+    // pattern Flyweight für die Shapes und Images.
     var _sprite = {
         name : 'bullet',
         type : 'image',
@@ -73,8 +73,8 @@ function Bullet() {
                 _sprite.images[bulletType] = MY_Game_Resources.get(_sprite.spriteSources[1]);
                 var offsetTop = o.getTop() +  66;
                 var offsetLeft = o.isFlippedImage() ? o.getLeft() - 30 : o.getOffsetRight() + 20;
-                _width = 30;
-                _height = 20;
+                _width = 97;
+                _height = 26;
                 break;
         }
         

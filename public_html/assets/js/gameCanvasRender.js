@@ -25,7 +25,7 @@ function GameCanvasRender() {
                 ctx.drawImage(img, shape.sLeft, shape.sTop, shape.width, shape.height, shape.left, shape.top, (shape.dWidth) ? shape.dWidth : shape.width, (shape.dHeight) ? shape.dHeight : shape.height);
                 return;
             }
-            ctx.drawImage(img, shape.left - MY_camera.xView, shape.top);
+            ctx.drawImage(img, shape.left - MY_camera.xView, shape.top, shape.width, shape.height);
         }
     }
 

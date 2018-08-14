@@ -3,8 +3,8 @@ function Hurdle () {
 
     //------privatbereich-------
 
-    var _width = 100,
-        _height = 60,
+    var _width = 80,
+        _height = 55,
         TOP_DEFAULT = 370,
         _top = TOP_DEFAULT,
         LEFT_DEFAULT = 800,
