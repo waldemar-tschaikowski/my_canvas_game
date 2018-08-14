@@ -1,10 +1,10 @@
-function Score(enemy) {
+function Time() {
     'use strict';
 
     //------privatbereich-------
 
-    var _enemy = enemy,
-        _left = 454;
+    var _left = 464,
+        _top = 400;
 
     var _sprite = {
         name : 'score',
@@ -14,7 +14,7 @@ function Score(enemy) {
         images : {}
     };
     
-    var _scoreShapes = [
+    var _timeShapes = [
         {
             sTop        : 136,//0
             sLeft       : 2,
@@ -102,6 +102,18 @@ function Score(enemy) {
         }
     ];
     
+    var _dotsShapes = [
+        {
+            sTop        : 29,//9
+            sLeft       : 581,
+            top         : 34,
+            width       : 60,
+            height      : 88,
+            dHeight     : 24,
+            dWidth      : 20
+        }
+    ];
+    
     function _getResources() {
         return _sprite;
     }
@@ -115,7 +127,23 @@ function Score(enemy) {
      * 
      * @returns {Background._sprite}
      */
-    this.get = function() {
+    this.get = function() {            
+        function getTimeShape(shape, index) {
+            var _frame =   {
+                 sTop        : shape[index].sTop,
+                 sLeft       : shape[index].sLeft,
+                 top         : 460,
+                 width       : shape[index].width,
+                 height      : shape[index].height,
+                 dHeight     : shape[index].dHeight,
+                 dWidth      : shape[index].dWidth,
+                 useSlice    : true,
+                 flipedImage : false
+             };
+
+             return _frame;
+        }
+    
         _sprite.images.scoreBar = null;
         _sprite.shapes.scoreBar = [];
         
@@ -136,51 +164,35 @@ function Score(enemy) {
          * 
          * Das Anzeigen des Spielstandes.
          */
-        var _score = _enemy.getScore();
+        var _time    = new Date();
+        var _hour    = _time.getHours();
+        var _minut   = _time.getMinutes();
+        var _second  = _time.getSeconds();
 
-        var _num = _score.toString();
-        var _len = _num.length;
+        var _offSetLeft = _left - 40;
         
-        var _w = 0;
-        for (var i= 0; i < _len; i++) {
-            _w += 20;//Die Breite "20" eines Elements
-        }
-        
-        _w += (_len - 1) * 5; // "5" die Abstand von Elementen
-        
-        var _offSetLeft = _left - (_w / 2);
-        
-        for (var i= 0; i < _len; i++) {
-            _sprite.images['score' + i] = MY_Game_Resources.get(_sprite.spriteSources[0]);
+        var _fullTime = _hour.toString() + ':' + _minut.toString() + ':' + _second.toString();
+
+        for (var i= 0; i < _fullTime.length; i++) {
+            if (_fullTime[i] === ':') {
+                var _frame = getTimeShape(_dotsShapes, 0);
+            }
+            else {
+                var _frame = getTimeShape(_timeShapes, _fullTime[i]);
+            }
             
-            //_scoreShapes[_num[i]].left = _offSetLeft;
-            
-            _offSetLeft += 25;// Die Breite plus den Abstand
-            
-            var _frame =   {
-                 sTop        : _scoreShapes[_num[i]].sTop,
-                 sLeft       : _scoreShapes[_num[i]].sLeft,
-                 top         : 34,
-                 width       : _scoreShapes[_num[i]].width,
-                 height      : _scoreShapes[_num[i]].height,
-                 dHeight     : _scoreShapes[_num[i]].dHeight,
-                 dWidth      : _scoreShapes[_num[i]].dWidth,
-                 useSlice    : true,
-                 flipedImage : false
-             };
+            _sprite.images['timme' + i] = MY_Game_Resources.get(_sprite.spriteSources[0]);
 
             _frame.left = MY_camera.xView + _offSetLeft;
 
-            _sprite.shapes['score' + i] = [_frame];
+            _sprite.shapes['timme' + i] = [_frame];
+                        
+            _offSetLeft += 20;
         }
 
         return _sprite;
     };
-    
-    this.getShape = function() {
-        
-    };
 }
 
-Score.prototype = new Actor();
-Score.prototype.constructor = Score;
+Time.prototype = new Actor();
+Time.prototype.constructor = Time;

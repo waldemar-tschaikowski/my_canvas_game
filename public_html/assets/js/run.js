@@ -14,7 +14,8 @@
             play : false,
             gameOver : false
         },
-        _score;
+        _score,
+        _time;
     
     var init = function () {
         window.MY_ControllerKey = {
@@ -80,7 +81,9 @@
         _enemy = new Enemy(_bullet);
         
         _score = new Score(_enemy);
-
+        
+        _time = new Time();
+        
         MY_Game_Resources.load(_player.getResources());
         MY_Game_Resources.load(_background.getResources());
         MY_Game_Resources.load(_gun.getResources());
@@ -97,6 +100,7 @@
         _drawRenderObjects.push(_hurdle);
         _drawRenderObjects.push(_enemy);
         _drawRenderObjects.push(_score);
+        _drawRenderObjects.push(_time);
                 
         preload();// Alle Resources in Cache ablegen
 
