@@ -48,7 +48,7 @@
             }
         };
         
-        //die gesamte Breite des Spielgames.
+        //die gesamte Breite und Höhe des Spielgames.
         window.MY_MapWidth = 4000;
         window.MY_MapHeight = 500;
         
@@ -71,7 +71,7 @@
         _player = new Player(_gun);
 
         /**
-         * Der Player bleibt in der Mitte.
+         * Der Player bleibt in der Mitte. MY_Canvas.width/2
          */
         MY_camera.follow(_player, MY_Canvas.width/2, MY_Canvas.height);
         
@@ -104,11 +104,11 @@
 
         /**
          * Das Objekt Player hat zwei Feinde: hurdle und enemy.
-         * Ein Objekt(z.b Player) kann aus mehrere Images(Teilen) bestehen. z.B In diesem Fall- "hurdle" besteht nur aus einem Teil -> images:[hurdle]
+         * Ein Objekt(z.b hurdle) kann aus mehrere Images(Teilen) bestehen. z.B In diesem Fall- "hurdle" besteht nur aus einem Teil -> images:[hurdle]
          * Aber es kann sein, dass Images mehrere copy von sich selbst haben. Die unterscheiden sich nur in Positionnierung ung Größen.
-         * Ich nenne diese Copy-Images als "Shapes" - Formen; Objekt -> Images -> Shape
+         * Ich nenne diese Kopie-Images als "Shapes" - Formen; Objekt -> Images -> Shape
          *
-         * Hier kann man festlegen, weilche Images sind für das Objekt gefährlich.
+         * Hier kann man festlegen, weilche Images und seine Kopie(Shapes) sind für das Objekt gefährlich.
          */
         _collisionDetection.addCollisionsObjects(_player,[
             {
@@ -122,6 +122,14 @@
             {
                 enemy : {
                     object : _enemy,
+                    images : [
+                        'enemy'
+                    ]
+                }
+            },
+            {
+                bullet : {
+                    object : _bullet,
                     images : [
                         'enemy'
                     ]
@@ -171,9 +179,6 @@
         if (MY_Game_Resources.isReady()) {
             clearTimeout(loopId);
 
-            //scene.draw(background.get());
-            //player.move(background);
-            //hurdle.move();
             MY_camera.move();
             
             var bg = _background.get();
@@ -187,7 +192,11 @@
         console.log('preload');
         loopId = setTimeout(preload, 300);
     };
-
+    
+    /*
+     * 
+      ----------Start des Spiels-----------
+    */
     var run = function () {
         window.addEventListener('keydown',function(e) {
             MY_ControllerKey.keyListener(e);
@@ -200,13 +209,7 @@
         
         var canvas = document.querySelector('canvas');
         canvas.addEventListener('mousedown', shootAction);
-        //canvas.addEventListener('mouseup', stopShootAction);
         
-        /*
-         * 
-          ----------Start des Spiels-----------
-        */
-        //var start = document.querySelector('#start-game');
         var start = document.querySelector('[data-role="start"]');
         
         start.addEventListener('click',function() {
@@ -215,7 +218,7 @@
             _gameStatus.play = true;
 
             if (loopIdGameStage !== undefined) {
-                reset();// Das Spiel kann man nach dem Game Over wieder starten
+                reset();// Wenn das Spiel schon gestartet wurde.
             }
             
             drawGameStage();
@@ -289,9 +292,7 @@
 
         // run play again ~60 times per sec    
         loopIdGameStage = window.requestAnimationFrame(function() {
-//            if (gameOver === false) {
-                drawGameStage();
-//            }            
+                drawGameStage();          
         });
     };
     

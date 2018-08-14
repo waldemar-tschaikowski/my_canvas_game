@@ -10,35 +10,46 @@ function CollisionDetection() {
     /**
      * 
      * @param object object1
-     * 
+     * @param object shape
+     *  
      * Ein Object kann mehrere Shapes erhalten.
      * Die Shape unterscheiden sich nur von Größen und Positionierung,
-     * aber die sind von einem Datentype erstammen.
+     * aber die sind von einem Datentype erstammen. Jeder Shape wird gegen seinem Gegner geprüft. 
      * pattern flyweight wurde benutzt. 
      * @param object shape. 
      * @returns {Boolean}
      */
     this.checkObjectCollision = function(object1, shape) {
-        //Der Name der Klasse(Function) benutze ich als Index.
+        //Der Name der Klasse benutze ich als Index.
         var object1_Index = object1.constructor.name;
-//        console.log(collisions[className]);
-        //console.log(spriteName);
+
         if (collisions[object1_Index] !== undefined) {
             //Alle Objekte durchlaufen, die eventuell in Kollision stehen können.
+            //Aus run.js Datei
             for (var i = 0; i < collisions[object1_Index].length; i++) {
-                //alle Properties durchgehen
+                //Feinde durchgehen.  
                 for (var o in collisions[object1_Index][i]) {
-                    //
-                    var _shortObj = collisions[object1_Index][i][o];
-                    var object2 = _shortObj.object.get();//Opponent
+                    //Feind aus der Run-Datei
+                    var _checkingOpponent = collisions[object1_Index][i][o];
+                    //Opponent
+                    var object2 = _checkingOpponent.object.get();
                     
                     //Kein Shape vorhanden ist.
                     if (object2 === null) {
                         return false;
                     }
-                    for (var y = 0; y < _shortObj.images.length; y++) {
-                        for (var z = 0; z < object2.shapes[_shortObj.images[y]].length; z++) {
-                            var shape2 = object2.shapes[_shortObj.images[y]][z];
+
+                    for (var y = 0; y < _checkingOpponent.images.length; y++) {
+                        //z.B der Kugel ist gefärlich für Objekt1 aus Konfig-darei, aber in diesem Moment
+                        //Objekt2 hat nicht geschossen.Nur nach dem Schießen oder einer Action.
+                        //Die Images und Shapes werden initialisiert.
+                        //Objekt2 kann für mehrere Objekte in Kollision stehen.
+                        if (object2.images[_checkingOpponent.images[y]] === undefined) {
+                            continue;
+                        }
+
+                        for (var z = 0; z < object2.shapes[_checkingOpponent.images[y]].length; z++) {
+                            var shape2 = object2.shapes[_checkingOpponent.images[y]][z];
                             
                             if (collides(
                                 shape.left,//x1

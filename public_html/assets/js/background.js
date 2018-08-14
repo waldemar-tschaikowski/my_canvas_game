@@ -5,7 +5,7 @@ function Background () {
         _height = 500,
         _top = 0,
         _left = 0,
-        _mapWidth = 4000,//2560
+        _mapWidth = 4000,
         _mapHeight = 500;
 
     var _sprite = {

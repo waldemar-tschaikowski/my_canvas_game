@@ -1,4 +1,4 @@
-function  Player(gun) {
+function Player(gun) {
     'use strict';
 
     //------privatbereich-------
@@ -644,21 +644,13 @@ function  Player(gun) {
         return MY_ControllerKey.right;
     };
     
-//    this.getOffsetTop = function() {
-//        return _top;
-//    };
-//    
-//    this.getOffsetLeft = function() {
-//        return _left;
-//    };
-    
     this.getOffsetRight = function() {
         return _left + _width;
     };
     
     this.reset = function() {
-        _top = TOP_DEFAULT;
-        _left = LEFT_DEFAULT;
+//        _top = TOP_DEFAULT;
+//        _left = LEFT_DEFAULT;
         _indexRunPlayer = 0;
         _indexCollisionsCounter = 0;
         _collision = false;
@@ -666,6 +658,7 @@ function  Player(gun) {
         _y_velocity = Y_VELOCITY_DEFAULT;
         _x_velocity = X_VELOCITY_DEFAULT;
         _playerStanding = true;
+        _sitting = false;
     };
     
     this.shoot = function() {

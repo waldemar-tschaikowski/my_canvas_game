@@ -52,7 +52,8 @@ function Enemy(bullet) {
     function _getResources() {
         return _sprite;
     }
-    var that = this;
+    
+    var _self = this;
     function _move() {
         _indexPos += SPEED;
         
@@ -69,9 +70,9 @@ function Enemy(bullet) {
             _flipedImage = false;// Bild umdrehen
         }
         
-        var r = Math.floor(Math.random() * 10);
+        var r = Math.floor(Math.random() * 100);
         if (r === 5) {
-            _bullet.addBullet(that, 'enemy');
+            _bullet.addBullet(_self, 'enemy');
         }
     }
 
@@ -123,7 +124,10 @@ function Enemy(bullet) {
     };
     
     this.isFlippedImage = function() {
-        return _flipedImage;
+        if (_direction < 0) {
+            return true;
+        }
+        return false;
     };
 
     this.getScore = function() {
