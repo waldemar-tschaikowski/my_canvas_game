@@ -71,7 +71,8 @@ function Enemy(bullet) {
         }
         
         var r = Math.floor(Math.random() * 100);
-        if (r === 5) {
+        //Wie oft schießt er.
+        if (r === 5 && (_left > MY_camera.xView - 100 && _left < MY_camera.xView + MY_camera.wView + 100)) {
             _bullet.addBullet(_self, 'enemy');
         }
     }

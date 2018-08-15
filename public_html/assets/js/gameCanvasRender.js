@@ -14,8 +14,8 @@ function GameCanvasRender() {
             _flipImage(img, shape.left - MY_camera.xView, shape.top, shape.width, shape.height);
         }
         else {
-            //Soll das Objekt abgeschnitten werden.
-            //@TODO das funktionniert nur für Background. das muss "shape.left - MY_camera.xView" gemacht werden.
+            //Wenn Sprite-Sheet Layout benutzt.
+            //Ein Teil von dem Bild auf dem Canvas
             if (shape.useSlice) {
                 //den Wert 0 ist für Beckground
                 if (shape.left !== 0) {
@@ -25,11 +25,13 @@ function GameCanvasRender() {
                 ctx.drawImage(img, shape.sLeft, shape.sTop, shape.width, shape.height, shape.left, shape.top, (shape.dWidth) ? shape.dWidth : shape.width, (shape.dHeight) ? shape.dHeight : shape.height);
                 return;
             }
+            //Ein ganzes Bild auf dem Canvas
             ctx.drawImage(img, shape.left - MY_camera.xView, shape.top, shape.width, shape.height);
         }
     }
 
-    //Das Bild umdrehen
+    //Das Bild umdrehen. Das Wird nur für das ganzes Bild benutzt.
+    //Kein Sprite-Sheet Model
     function _flipImage(img, x, y, width, height) {
         ctx.save();
 

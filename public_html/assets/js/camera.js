@@ -22,7 +22,7 @@ function Camera() {
     this.xDeadZone = 0; // min distance to horizontal borders
     this.yDeadZone = 0; // min distance to vertical borders
 
-    // Die Größen von Kamera
+    // Die Größen von Kamera. Auch Canvas Breite
     this.wView = MY_Canvas.width;
     this.hView = MY_Canvas.height;	
 
@@ -141,14 +141,9 @@ function Camera() {
         if (backgroundHeight - sy < sHeight) {
             sHeight = backgroundHeight - sy; 
         }
-//        console.log(this.yView + '--yView--' + this.xView + '--xView');
-//        console.log(sy + '--sy--' + sx + '--sx--');
-//        console.log(this.wView + '--this.wView--' + this.hView + '--this.hView--');
-        //Hier setzt man den Bereich, nur der söllte angezeigt werden.
-        //background.setMapSize(this.yView, sx, sWidth, sHeight);
     };
     
     this.reset = function() {
-
+        this.xView = 0;
     };
 }

@@ -2,8 +2,8 @@ function CollisionDetection() {
     'use strict';
 
     /**
-     * --object to check-- //-> geprüftes Objekt 
-     * collision Objecte   //-> array von Objekten, die eventuell in konflikt mit geprüftem Objekt stehen können.
+     * key -> geprüftes Objekt 
+     * value -> array von Objekten, die in konflikt mit geprüftem Objekt stehen können.
      */
     var collisions = {};
     
@@ -13,8 +13,8 @@ function CollisionDetection() {
      * @param object shape
      *  
      * Ein Object kann mehrere Shapes erhalten.
-     * Die Shape unterscheiden sich nur von Größen und Positionierung,
-     * aber die sind von einem Datentype erstammen. Jeder Shape wird gegen seinem Gegner geprüft. 
+     * Die Shapes unterscheiden sich nur von Größen und Positionierung,
+     * aber die sind von einem Datentype erstammen. Jeder Shape wird gegen seinem Gegner Shape geprüft. 
      * pattern flyweight wurde benutzt. 
      * @param object shape. 
      * @returns {Boolean}
@@ -84,9 +84,7 @@ function CollisionDetection() {
      * @param {type} b2
      * @returns {Boolean}
      */
-    function collides(x1, y1, r1, b1, x2, y2, r2, b2) {
-        //console.log(x1, y1, r1, b1, x2, y2, r2, b2);
-       
+    function collides(x1, y1, r1, b1, x2, y2, r2, b2) {       
         return !(r1 <= x2 || x1 > r2 ||
                  b1 <= y2 || y1 > b2);
     }

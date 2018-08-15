@@ -1,12 +1,14 @@
-(function () {
+(function() {
     'use strict';
   
-    var _player,
+    var _canvas,
+        _start,
+        _player,
         _background,
         _gun,
         _hurdle,
         _gameCanvasRender,
-        _drawRenderObjects = [],
+        _drawRenderSprites = [],
         _enemy,
         _bullet,
         _collisionDetection,
@@ -17,7 +19,7 @@
         _score,
         _time;
     
-    var init = function () {
+    var init = function() {
         window.MY_ControllerKey = {
             left : false,
             right : false,
@@ -91,18 +93,17 @@
         MY_Game_Resources.load(_hurdle.getResources());
         MY_Game_Resources.load(_enemy.getResources());
         MY_Game_Resources.load(_score.getResources());
+        MY_Game_Resources.load(_time.getResources());
 
         //Alle Objekte auf dem Bildschirm aufzeichen.
-        _drawRenderObjects.push(_background);
-        _drawRenderObjects.push(_player);
-        _drawRenderObjects.push(_bullet);
-        _drawRenderObjects.push(_gun);
-        _drawRenderObjects.push(_hurdle);
-        _drawRenderObjects.push(_enemy);
-        _drawRenderObjects.push(_score);
-        _drawRenderObjects.push(_time);
-                
-        preload();// Alle Resources in Cache ablegen
+        _drawRenderSprites.push(_background);
+        _drawRenderSprites.push(_player);
+        _drawRenderSprites.push(_bullet);
+        _drawRenderSprites.push(_gun);
+        _drawRenderSprites.push(_hurdle);
+        _drawRenderSprites.push(_enemy);
+        _drawRenderSprites.push(_score);
+        _drawRenderSprites.push(_time);
 
         _collisionDetection = new CollisionDetection();
 
@@ -152,11 +153,43 @@
             }
         ]);
         
-        //-- Start--//
-        run();
+        window.addEventListener('keydown',function(e) {
+            MY_ControllerKey.keyListener(e);
+        },true);
+
+        window.addEventListener('keyup',function(e) {
+            MY_ControllerKey.keyListener(e);
+
+        },true);
+        
+        _canvas = document.querySelector('canvas');
+        _canvas.addEventListener('mousedown', shootAction);
+        
+        _start = document.querySelector('[data-role="start"]');
+        
+        _start.addEventListener('click',function() {
+            /**
+             * Beim Klick auf die Leertaste wird diese Funktion aufgerufen.
+             * die blur() vermeidet dieser Aufruf.
+             */
+            this.blur();
+            
+            _gameStatus.play = true;
+
+            if (loopIdGameStage !== undefined) {
+                reset();// Wenn das Spiel schon gestartet wurde.
+            }
+            
+            drawGameStage();
+        });
+        
+        var pause = document.querySelector('[data-role="pause"]');
+        
+        pause.addEventListener('click', setPauseGame);
+        
+                        
+        preload();// Alle Resources in Cache ablegen
     };
-
-
 
     var loopId;
     var counterPoint = 1;
@@ -191,55 +224,22 @@
             _gameCanvasRender.draw(bg.images.background, bg.shapes.background[0]);            
             _gameCanvasRender.draw(pl.images.player, pl.shapes.player[0]);
             
+            _start.disabled = false;
+            
             return;
         } 
-        console.log('preload');
+
         loopId = setTimeout(preload, 300);
     };
-    
-    /*
-     * 
-      ----------Start des Spiels-----------
-    */
-    var run = function () {
-        window.addEventListener('keydown',function(e) {
-            MY_ControllerKey.keyListener(e);
-        },true);
 
-        window.addEventListener('keyup',function(e) {
-            MY_ControllerKey.keyListener(e);
-
-        },true);
-        
-        var canvas = document.querySelector('canvas');
-        canvas.addEventListener('mousedown', shootAction);
-        
-        var start = document.querySelector('[data-role="start"]');
-        
-        start.addEventListener('click',function() {
-            this.blur();//Damit die Leertaste, dieses Event nicht auslöst.
-            
-            _gameStatus.play = true;
-
-            if (loopIdGameStage !== undefined) {
-                reset();// Wenn das Spiel schon gestartet wurde.
-            }
-            
-            drawGameStage();
-        });
-        
-        var pause = document.querySelector('[data-role="pause"]');
-        
-        pause.addEventListener('click', setPauseGame);
-    };
     
     var reset = function() {
         //Beim ersten Aufruf startet auch diese Funktion.
-        for (var i = 0; i < _drawRenderObjects.length; i++) {
-            _drawRenderObjects[i].reset();
+        for (var i = 0; i < _drawRenderSprites.length; i++) {
+            _drawRenderSprites[i].reset();
         }
 
-        //MY_camera.reset();
+        MY_camera.reset();
         window.cancelAnimationFrame(loopIdGameStage);
 
         _gameStatus.gameOver = false;
@@ -260,8 +260,8 @@
         _gameCanvasRender.clear();
 
         try {
-            for (var i = 0; i < _drawRenderObjects.length; i++) {
-                _sprite = _drawRenderObjects[i].get();
+            for (var i = 0; i < _drawRenderSprites.length; i++) {
+                _sprite = _drawRenderSprites[i].get();
                 
                 // wenn ein Objekt nicht angezeigt werden soll.
                 if (_sprite === null) {
@@ -271,9 +271,9 @@
                 for (var img in _sprite.images) {
                     if (_sprite.shapes.hasOwnProperty(img)) {
                         for(var z = 0; z < _sprite.shapes[img].length; z++) {
-                            if (_collisionDetection.checkObjectCollision(_drawRenderObjects[i], _sprite.shapes[img][z])) {
+                            if (_collisionDetection.checkObjectCollision(_drawRenderSprites[i], _sprite.shapes[img][z])) {
                             
-                                _drawRenderObjects[i].onCollision(function(state) {
+                                _drawRenderSprites[i].onCollision(function(state) {
                                     if (state === 666) {
                                         _gameStatus.gameOver = true;
                                     }

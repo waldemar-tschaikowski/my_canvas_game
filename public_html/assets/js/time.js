@@ -143,22 +143,6 @@ function Time() {
 
              return _frame;
         }
-    
-        _sprite.images.scoreBar = null;
-        _sprite.shapes.scoreBar = [];
-        
-        _sprite.images.scoreBar = MY_Game_Resources.get(_sprite.spriteSources[0]);
-
-        _sprite.shapes.scoreBar.push({
-            sTop        : 63,//sTop Sourse Top
-            sLeft       : 283,
-            top         : 10,
-            left        : MY_camera.xView + 450,
-            width       : 58,
-            height      : 25,
-            useSlice    : true,
-            flipedImage : false
-        });
         
         /**
          * 
@@ -166,8 +150,8 @@ function Time() {
          */
         var _time    = new Date();
         var _hour    = _time.getHours();
-        var _minut   = _time.getMinutes();
-        var _second  = _time.getSeconds();
+        var _minut   = ('0'+_time.getMinutes()).slice(-2);
+        var _second  = ('0'+_time.getSeconds()).slice(-2);
 
         var _offSetLeft = _left - 40;
         

@@ -93,10 +93,10 @@ function Gun(bullet) {
     this.shoot = function(o) {
         _shoot(o);
     };
-    
-    this.stopShoot = function() {
-        //audio.data.pause(0);
-    };
+//    
+//    this.stopShoot = function() {
+//        //audio.data.pause(0);
+//    };
 
     this.hasClone = function() {
         return _sprite.shapes;

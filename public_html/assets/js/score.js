@@ -4,7 +4,7 @@ function Score(enemy) {
     //------privatbereich-------
 
     var _enemy = enemy,
-        _left = 454;
+        _left = 450;
 
     var _sprite = {
         name : 'score',
@@ -105,6 +105,9 @@ function Score(enemy) {
     function _getResources() {
         return _sprite;
     }
+
+    
+    //------öffentlichen Bereich-------
     
     this.getResources = function() {
         return _getResources();
@@ -125,8 +128,8 @@ function Score(enemy) {
             sTop        : 63,//sTop Sourse Top
             sLeft       : 283,
             top         : 10,
-            left        : MY_camera.xView + 450,
-            width       : 58,
+            left        : MY_camera.xView + 452,
+            width       : 46,
             height      : 25,
             useSlice    : true,
             flipedImage : false
@@ -152,8 +155,6 @@ function Score(enemy) {
         
         for (var i= 0; i < _len; i++) {
             _sprite.images['score' + i] = MY_Game_Resources.get(_sprite.spriteSources[0]);
-            
-            //_scoreShapes[_num[i]].left = _offSetLeft;
             
             _offSetLeft += 25;// Die Breite plus den Abstand
             

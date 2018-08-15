@@ -649,8 +649,8 @@ function Player(gun) {
     };
     
     this.reset = function() {
-//        _top = TOP_DEFAULT;
-//        _left = LEFT_DEFAULT;
+        _top = TOP_DEFAULT;
+        _left = LEFT_DEFAULT;
         _indexRunPlayer = 0;
         _indexCollisionsCounter = 0;
         _collision = false;

@@ -77,8 +77,8 @@ function Hurdle () {
     };
     
     this.reset = function() {
-        _top = TOP_DEFAULT;
-        _left = LEFT_DEFAULT * 2;
+        _top  = TOP_DEFAULT;
+        _left = MY_camera.xView + LEFT_DEFAULT;
         _direction = 1;
     };
 }
