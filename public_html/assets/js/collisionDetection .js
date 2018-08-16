@@ -5,7 +5,24 @@ function CollisionDetection() {
      * key -> geprüftes Objekt 
      * value -> array von Objekten, die in konflikt mit geprüftem Objekt stehen können.
      */
-    var collisions = {};
+    var collisions = {};    
+    
+    /**
+     * 
+     * @param {type} x1
+     * @param {type} y1
+     * @param {type} r1
+     * @param {type} b1
+     * @param {type} x2
+     * @param {type} y2
+     * @param {type} r2
+     * @param {type} b2
+     * @returns {Boolean}
+     */
+    function collides(x1, y1, r1, b1, x2, y2, r2, b2) {       
+        return !(r1 <= x2 || x1 > r2 ||
+                 b1 <= y2 || y1 > b2);
+    }
     
     /**
      * 
@@ -71,23 +88,6 @@ function CollisionDetection() {
         
         return false;
     };
-
-    /**
-     * 
-     * @param {type} x1
-     * @param {type} y1
-     * @param {type} r1
-     * @param {type} b1
-     * @param {type} x2
-     * @param {type} y2
-     * @param {type} r2
-     * @param {type} b2
-     * @returns {Boolean}
-     */
-    function collides(x1, y1, r1, b1, x2, y2, r2, b2) {       
-        return !(r1 <= x2 || x1 > r2 ||
-                 b1 <= y2 || y1 > b2);
-    }
     
     /**
      * für welches Objekt sind die anderen Objekte "Opponenten" betrachten

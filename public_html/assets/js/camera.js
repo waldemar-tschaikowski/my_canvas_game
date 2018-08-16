@@ -1,4 +1,6 @@
 function Camera() {
+    'use strict';
+    
    /*   
     *    _______yView______________
     *   |  xView|       |         |

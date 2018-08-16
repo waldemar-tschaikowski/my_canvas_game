@@ -9,8 +9,8 @@ function Resources() {
         if (urlOrArr.name === 'background') {
             var map = document.createElement("canvas").getContext("2d");
 
-            map.canvas.width = urlOrArr.shapes.background[0].mapWidth;
-            map.canvas.height = urlOrArr.shapes.background[0].mapHeight;
+            map.canvas.width = MY_MapWidth;
+            map.canvas.height = MY_MapHeight;
 
             resourceCache[urlOrArr.spriteSources[0]] = false;
             var img = new Image();
@@ -25,13 +25,13 @@ function Resources() {
                 //readyCallbacks.forEach(function(func) { func(); });
 
                 var left = 0;
-                var width = 2560;
+                var width = urlOrArr.shapes.background[0].width;
                 do {
                     map.drawImage(this, left, 0, urlOrArr.shapes.background[0].width, urlOrArr.shapes.background[0].height);
 
-                    left += width - 2; //@TODO das Bild hat links 2px breit den weißen Bereich
+                    left += width;
 
-                    if (left > 18000) {
+                    if (left > MY_MapWidth) {
                         break;
                     }
 

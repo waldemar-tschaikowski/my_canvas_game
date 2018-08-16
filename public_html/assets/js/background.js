@@ -4,9 +4,7 @@ function Background () {
     var _width = 2560,
         _height = 500,
         _top = 0,
-        _left = 0,
-        _mapWidth = 4000,
-        _mapHeight = 500;
+        _left = 0;
 
     var _sprite = {
         name : 'background',
@@ -17,9 +15,7 @@ function Background () {
                 width       : _width,
                 height      : _height,
                 top         : _top,
-                left        : _left,
-                mapWidth    : _mapWidth,
-                mapHeight   : _mapHeight
+                left        : _left
             }]
         },
         images : {
